@@ -1,0 +1,44 @@
+{
+  "name": "B-Roll Credit Copier",
+  "short_name": "BRollCreditCopier",
+  "version": "2.0.0",
+  "description": "Copy data from many b-roll sites to the clipboard for pasting directly into b-roll spreadsheet.",
+  "background": {
+    "scripts": ["globals.js","iconAnimations.js","background.js"],
+    "persistent": false
+  },
+  "page_action" :
+  {
+    "default_icon": {
+      "16": "images/icon16.png",           // optional
+      "24": "images/icon24.png",           // optional
+      "32": "images/icon32.png"            // optional
+    },
+
+    "default_title" : "Copy spreadsheet data from many b-roll research sites."
+  },
+  "permissions" : [
+    "declarativeContent",
+    "activeTab",
+    "clipboardWrite",
+    "storage",
+    "contextMenus",
+    "https://www.googleapis.com/"
+
+  ],
+  "icons" : {
+    "48" : "images/icon48.png",
+    "128" : "images/icon128.png"
+  },
+  "web_accessible_resources": [
+       "images/plainmodal-close.png","images/plainmodal-close_warning.png","images/plainmodal-close_halt.png"
+  ],
+  "commands" : {
+    "_execute_page_action": {
+      "suggested_key": {
+        "default": "Alt+C"
+      }
+    }
+  },
+  "manifest_version": 2
+}
