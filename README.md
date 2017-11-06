@@ -27,7 +27,7 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 
 ### "Prebuilt" version from the Chrome store
 If you're just interested in using the tool, you can install it with one click from the Chrome store at this link:
-asdfasdf
+[https://chrome.google.com/webstore/detail/b-roll-credit-copier/gnndiaoenmcmkcghlgkdnkdilnhoheog](https://chrome.google.com/webstore/detail/b-roll-credit-copier/gnndiaoenmcmkcghlgkdnkdilnhoheog)
 
 ### Adapting it to your own workflow
 You are also free to download and adapt the code as you like. Please be sure to read the [License](#license) section for important information about making your own version.
