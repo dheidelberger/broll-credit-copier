@@ -635,7 +635,7 @@ function ruptly() {
 
 function newsmarket() {
 	var title = $("div.title h1").text().trim();
-	var credit = $("b:contains('SOURCE:')")[0].nextElementSibling.innerText + "|The NewsMarket";
+	var credits = $("b:contains('SOURCE:')")[0].nextElementSibling.innerText + "|The NewsMarket";
 	var license = $("div.asset-usagerights div.visible-text").text().trim();
 	var url = window.location.href
 

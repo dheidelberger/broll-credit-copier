@@ -111,8 +111,8 @@ chrome.runtime.onInstalled.addListener(function() {
         }),
         new chrome.declarativeContent.PageStateMatcher({
           pageUrl: {
-            hostContains: 'thenewsmarket.com',
-            pathContains: '/global/all/video-images-audio/',
+            hostContains: 'thenewsmarket.com'
+            //pathContains: '/global/all/video-images-audio/',
           },
           css: ["div.images-videos-detail-page"]
         }),
@@ -336,8 +336,8 @@ function handleClick(tab) {
 
 
     chrome.tabs.insertCSS(null, {file: "basic.css"}, function () {
-      chrome.tabs.executeScript(null, { file: "jquery-1.11.3.min.js" }, function() {
-        chrome.tabs.executeScript(null, { file: "jquery.plainmodal.min.js" }, function() {
+      chrome.tabs.executeScript(null, { file: "libs/jquery-1.11.3.min.js" }, function() {
+        chrome.tabs.executeScript(null, { file: "libs/jquery.plainmodal.min.js" }, function() {
           chrome.tabs.executeScript(null, { file: "apikeys.js" }, function() {
             chrome.tabs.executeScript(null, {file:"globals.js"}, function() {
             chrome.tabs.executeScript(null, { file: "alerts.js" }, function() {
