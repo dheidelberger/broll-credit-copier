@@ -107,6 +107,7 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.0.2 - Reorganized and cleaned up folder structure a bit, fixed bug in Newsmarket
 * 2.0.1 - Fixed an issue with identifying filenames for Unifeed footage
 * 2.0.0 - Initial open source release, also significant redesign to allow for async API calls, animated icon, audio feedback for clicks, many other small changes and bug fixes
 * All versions prior to 2.0.0 are closed source and not available on GitHub.
