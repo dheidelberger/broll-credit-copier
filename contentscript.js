@@ -525,9 +525,9 @@ function mediaExpress() {
 
 
 		//Use the overall title and add the first line of the shotlist for each clip
-		var titleList = $.map($('div.package-list-item').find('div.story'),function(x){
+		var titleList = $.map($('div.package-list-item').find('div.story'),function(x,idx){
 
-			return title+": "+$(x).find('p')[0].textContent.replace(/(\r\n|\n|\r)/gm,"");
+			return title+" (Clip "+(idx+1)+"): "+$(x).find('p')[0].textContent.replace(/(\r\n|\n|\r)/gm,"");
 		});
 
 		debug("Title List: "+titleList);
@@ -544,7 +544,7 @@ function mediaExpress() {
 		//The background script knows automatically to handle scalar and array fields properly as long as expectArray is true.
 		fieldObject.filename = "";
 		fieldObject.title = titleList;
-		fieldObject.source = collectionURL;
+		fieldObject.source = "Collection link: "+collectionURL;
 		fieldObject.license = licenseList;
 		fieldObject.credits = credit;
 		fieldObject.url = urlList;

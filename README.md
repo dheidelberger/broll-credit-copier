@@ -56,7 +56,7 @@ If there's another website that you want to add to the tool, please feel free to
 
 To add a new site, there are three places you need to add code:
 
-1. In [background.js](background.js), add a new rule to the declarativeContent section. This will make Chrome recognize that the tool is compatible with that site. Check Google's [documentation on declarativeContent](https://developer.chrome.com/extensions/declarativeContent) for information about how to write your own rules.
+1. In [background.js](background.js), add a new rule to the declarativeContent section. This will make Chrome recognize that the tool is compatible with that site. Check Google's [documentation on declarativeContent](https://developer.chrome.com/extensions/declarativeContent) for information about how to write your own rules. The rule should be specific to a page where there's metadata to copy. So, for example, the css part of the Vimeo rule below makes sure that the user is on a page with a video on it and not on a search result page or some other page on the Vimeo site. This is a bit trial and error. Most of the bugs that I fix in the code at this point are when I discover some new way a site displays videos that means the rule either matches when it shouldn't or doesn't match when it should.
 
 ```javascript
  new chrome.declarativeContent.PageStateMatcher({
@@ -107,6 +107,7 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.0.3 - Improved how MediaExpress multishot clips are reported. User gets more information now about the package link and the clip index)
 * 2.0.2 - Reorganized and cleaned up folder structure a bit, fixed bug in Newsmarket
 * 2.0.1 - Fixed an issue with identifying filenames for Unifeed footage
 * 2.0.0 - Initial open source release, also significant redesign to allow for async API calls, animated icon, audio feedback for clicks, many other small changes and bug fixes
