@@ -86,17 +86,18 @@ chrome.runtime.onInstalled.addListener(function() {
           pageUrl: {
             hostContains: 'pond5.com'
           },
-          css: ["div.SearchPage-section"]
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains: 'pond5.com'
-          },
-          css: ["a.artistAvatar"]
+          css: ["span.js-addToCartButtonText"]
         }),
         new chrome.declarativeContent.PageStateMatcher({
           pageUrl: {
             hostContains: 'mediaexpress.reuters.com'
+          },
+          css: ["div.item-detail"]
+
+        }),
+        new chrome.declarativeContent.PageStateMatcher({
+          pageUrl: {
+            hostContains: 'reutersconnect.com'
           },
           css: ["div.item-detail"]
 

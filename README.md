@@ -13,6 +13,7 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 * [Freesound](http://www.freesound.org)
 * [The NewsMarket](http://www.thenewsmarket.com)
 * [Pond5 Public Domain](https://www.pond5.com/free)
+* [Reuters Connect](https://www.reutersconnect.com/)
 * [Reuters MediaExpress](http://mediaexpress.reuters.com/)
 * [Reuters Newscom](http://www.newscom.com)*
 * [Ruptly](http://www.ruptly.tv)
@@ -33,6 +34,8 @@ If you're just interested in using the tool, you can install it with one click f
 You are also free to download and adapt the code as you like. Please be sure to read the [License](#license) section for important information about making your own version.
 
 The code should work out-of-the-box except that you'll need to use your own API keys for YouTube and Vimeo. You can find directions for how to do that in [apikeys.sample.js](apikeys.sample.js). Check out the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) for information about how to install an extension you are developing.
+
+As of version 2.0.4, I'm including jQuery and the jQuery plainmodal plugin in the git repo. I realize that this is a somewhat frowned upon decision, but my reason for doing so is to make it so it really does work out-of-the-box and a novice who wants to tinker with the code doesn't have to deal with soem sort of package installer. Feel free to delete the contents of the 'libs' folder and download your own versions of [jQuery](https://jquery.com/) and [jQuery plainmodal](https://github.com/anseki/jquery-plainmodal). You'll have to modify the executeScripts code in [background.js](https://github.com/dheidelberger/broll-credit-copier/blob/fe0d51b55712d559d2c84d900ea37aa636084322/background.js#L339-L340) if the library file names are different.
 
 ## Usage
 
@@ -107,6 +110,7 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.0.4 - Added support for Reuters Connect, rewrote Pond5 to accoomodate site redesign, added jquery and jquery.plainmodal to Git repository.
 * 2.0.3 - Improved how MediaExpress multishot clips are reported. User gets more information now about the package link and the clip index)
 * 2.0.2 - Reorganized and cleaned up folder structure a bit, fixed bug in Newsmarket
 * 2.0.1 - Fixed an issue with identifying filenames for Unifeed footage

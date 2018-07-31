@@ -481,8 +481,34 @@ function freeSound() {
 	message(fieldObject);
 }
 
+//Reuters Connect. Replacement for MediaExpress, and very simimlar page structure.
+//Unlike MediaExpress, there are no clip bundles. Makes life much easier!
+function reutersConnect() {
+	var fieldObject = {};
+	var credit = "Reuters";
+
+	//https://www.reutersconnect.com/all?id=tag%3Areuters.com%2C2018%3Anewsml_LVA0038MX2ERD%3A1&
+
+	//Convert the tag to a URL that lets us link back to the story
+	var videoTag = encodeURIComponent($("span#selected-item-id").text());
+	var videoURL = "https://www.reutersconnect.com/all?share=true&id=" + videoTag;	
 
 
+	//Get the title
+	var title = $("div.item-detail h2[data-qa-component='item-headline").text().replace(/(\r\n|\n|\r)/gm," ");
+
+	var restrictions = $("span[data-qa-component='meta-data-restrictions-value']").text().replace(/(\r\n|\n|\r)/gm,"");
+	var license = "RESTRICTIONS: "+restrictions
+
+	fieldObject.filename = "";
+	fieldObject.title = title;
+	fieldObject.source = "Reuters Connect";
+	fieldObject.license = license;
+	fieldObject.credits = credit;
+	fieldObject.url = videoURL;
+	message(fieldObject);	
+
+}
 
 
 //Reuters MediaExpress can have collections of multiple clips
@@ -499,7 +525,7 @@ function mediaExpress() {
 	var collectionTag = encodeURIComponent($("span#selected-item-id").text());
 	var collectionURL = "http://mediaexpress.reuters.com/detail/?id=" + collectionTag
 	
-	var title = $("div.item-detail h2.headline").text().replace(/(\r\n|\n|\r)/gm," ");;
+	var title = $("div.item-detail h2.headline").text().replace(/(\r\n|\n|\r)/gm," ");
 
 	if (clipCount > 1) {
 		debug("It's a list of clips");
@@ -662,6 +688,7 @@ function pond5Search(url) {
 		flashWarning("Stop",[pond5MoneyHeader],[pond5MoneyMessage],"Red");
 		fieldObject.status = "Fail";
 	}
+	
 
 	fieldObject.filename = "";
 	fieldObject.title = title;
@@ -751,18 +778,7 @@ try {
 	}
 
 	if (url.includes("pond5.com")) {
-		var publicDomain = $("input#filter-publicDomain");
-		if (publicDomain.size() > 0) { //We're on the search page
-			var linkUrl = $("a:contains('See item details')").attr("href");
-			if (linkUrl) {
-				pond5Search(linkUrl);	
-			} else {
-				flashWarning("Stop",["No clip is selected"],["You haven't selected a clip, so there's no clip information to copy."],"halt");
-			}
-		} else if ($("a.artistAvatar").size() > 0){ //Result page
-			pond5Result();
-
-		}
+		pond5Result();
 	}
 
 	if (url.includes("mediaexpress.reuters.com")) {
@@ -771,6 +787,10 @@ try {
 
 	if (url.includes("ec.europa.eu")) {
 		europeanCommission();
+	}
+
+	if (url.includes("reutersconnect.com")) {
+		reutersConnect();
 	}
 
 } catch(err) {
