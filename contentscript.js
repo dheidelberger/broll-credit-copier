@@ -273,7 +273,6 @@ function vimeo() {
     var request = "https://api.vimeo.com/videos/"+vidID+"?"+"fields=name,license,height,width,link,user.name";
    
     
-    //TODO: Make async. See YouTube
     var xhr = new XMLHttpRequest();
 	xhr.timeout = 4000;
 
