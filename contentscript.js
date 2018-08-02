@@ -3,7 +3,6 @@
 //fieldObject.status can be "Success" "Fail" or "Warning" - unset assumes success
 //fieldObject.expectArray if there is an array value somewhere in the list (Reuters MediaExpress, for example)
 
-//function message(arr,hasError) {
 function message(fieldObject) {
 
 	
