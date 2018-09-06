@@ -14,7 +14,7 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 * [The NewsMarket](http://www.thenewsmarket.com)
 * [Pond5 Public Domain](https://www.pond5.com/free)
 * [Reuters Connect](https://www.reutersconnect.com/)
-* [Reuters MediaExpress](http://mediaexpress.reuters.com/)
+* [Reuters MediaExpress](http://mediaexpress.reuters.com/)+
 * [Reuters Newscom](http://www.newscom.com)*
 * [Ruptly](http://www.ruptly.tv)
 * [United Nations Unifeed](http://www.unmultimedia.org/tv/unifeed/)
@@ -22,7 +22,11 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 * [Vimeo](http://www.vimeo.com)
 * [YouTube](http://www.youtube.com)
 
+\+ - Reuters is phasing out MediaExpress. In my workflow, I've moved on to Reuters Connect and I'm no longer maintaining MediaExpress compatibility 
 \* - I no longer have access to Reuters Newscom, so the tool may or may not work with it any more.
+
+## NOTE
+As of version 2.1.0, I've added a number of new features, most notably testing. This has required a lot of code reconfiguration and also means that there's now a building process for the extension via Gulp. I haven't had time to update this documentation yet, so for the moment, the installation, build, and contribution sections are not very accurate.
 
 ## Installation
 
@@ -32,6 +36,8 @@ If you're just interested in using the tool, you can install it with one click f
 
 ### Adapting it to your own workflow
 You are also free to download and adapt the code as you like. Please be sure to read the [License](#license) section for important information about making your own version.
+
+**Note that as of 2.1.0, a number of changes have made this section of the documentation somewhat obsolete. I'll try to update it when I can.**
 
 The code should work out-of-the-box except that you'll need to use your own API keys for YouTube and Vimeo. You can find directions for how to do that in [apikeys.sample.js](apikeys.sample.js). Check out the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) for information about how to install an extension you are developing.
 
@@ -55,6 +61,8 @@ The metadata is copied into a line of tab-separated text with the following colu
 
 ## Contributing
 
+**Note that as of 2.1.0, a number of changes have made this section of the documentation somewhat obsolete. I'll try to update it when I can.**
+
 If there's another website that you want to add to the tool, please feel free to code it yourself and submit a pull request, or you can submit a feature request on the issue tracker page and I'll try to take a look if and when I have the time.
 
 To add a new site, there are three places you need to add code:
@@ -69,7 +77,7 @@ To add a new site, there are three places you need to add code:
     css: ['div.player_area']
 
 })
-````
+```
 
 2. In [contentscript.js](contentscript.js), create a new function for the website you want to add. The convention I've been using is to name the function after the website. The function should do all the scraping on the page and create an object with the necessary fields. At the end of the function, call the `message()` function and pass it the object. Look at the Vimeo function in the code for an example of how to do this asynchronously, where we need to wait for the result of an API call before we can call the message function. jQuery is injected into pages where Credit Copier is used, so you can use jQuery to help you scrape. Here's an example of a typical function. You'll have to figure out your own jQuery queries to scrape the appropriate data from the site:
 
@@ -110,6 +118,7 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.1.0 - Added testing using Node, Google Puppeteer, Mocha, and Chai. A great deal of code refactoring to support the testing framework. Added a build process via Gulp to address some of the refactoring. Many bug fixes including for Ruptly, Flickr, VideoBlocks, and Pond5.
 * 2.0.4 - Added support for Reuters Connect, rewrote Pond5 to accoomodate site redesign, added jquery and jquery.plainmodal to Git repository.
 * 2.0.3 - Improved how MediaExpress multishot clips are reported. User gets more information now about the package link and the clip index)
 * 2.0.2 - Reorganized and cleaned up folder structure a bit, fixed bug in Newsmarket
