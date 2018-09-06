@@ -1,0 +1,27 @@
+{
+  "name": "broll-credit-copier",
+  "version": "2.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test2": "./node_modules/mocha/bin/mocha",
+    "test": "mocha"
+  },
+  "author": "David Heidelbegrer <david.heidelberger@gmail.com> (http://www.davidheidelberger.com)",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-ignore": "^2.0.2",
+    "gulp-jshint": "^2.1.0",
+    "gulp-preprocess": "^3.0.1",
+    "gulp-uglify": "^3.0.1",
+    "gulp-zip": "^4.2.0",
+    "jshint": "^2.9.6",
+    "lodash": "^4.17.10",
+    "mocha": "^5.2.0",
+    "puppeteer": "^1.6.2"
+  }
+}

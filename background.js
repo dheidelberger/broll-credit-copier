@@ -13,118 +13,22 @@ chrome.runtime.onInstalled.addListener(function() {
         
 
         conditions: [
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {hostEquals: 'www.dvidshub.net'},
-          css: ["h1.asset-title"]
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostEquals:   'www.youtube.com',
-            pathContains: 'watch' 
-          }
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains:   'vimeo.com',
-          },
-          css: ['div.player_area']
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostEquals:   'www.aparchive.com',
-            pathContains: 'metadata' 
-          }
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains:   'apimages.com',
-            pathContains: 'metadata' 
-          }
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains:   'newscom.com',
-            queryContains:  'searchString='
-            
-          }
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains:   'videoblocks.com',
-            pathContains: 'video/' 
-          }
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains:   'unmultimedia.org',
-            pathContains: 'tv/unifeed/asset' 
-          }
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains:   'flickr.com',
-            pathContains: 'photos/' 
-          }
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains:   'freesound.org',
-            pathContains: 'people/',
-            pathContains: 'sounds/' 
-          }
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains: 'pond5.com'
-          },
-          css: ["span.js-addToCartButtonText"]
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains: 'mediaexpress.reuters.com'
-          },
-          css: ["div.item-detail"]
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains: 'reutersconnect.com'
-          },
-          css: ["div.item-detail"]
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains: 'ec.europa.eu',
-            queryContains: '&ref='
-          }
-          
-
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains: 'thenewsmarket.com'
-            //pathContains: '/global/all/video-images-audio/',
-          },
-          css: ["div.images-videos-detail-page"]
-        }),
-        new chrome.declarativeContent.PageStateMatcher({
-          pageUrl: {
-            hostContains: 'ruptly.tv',
-            pathContains: '/vod/'
-          }
-        })
-
-
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.dvids),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.youtube),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.vimeo),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.aparchive),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.apimages),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.newscom),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.videoblocks),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.unifeed),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.flickr),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.freesound),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.pond5),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.mediaexpress),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.reutersconnect),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.ec),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.newsmarket),
+        new chrome.declarativeContent.PageStateMatcher(matchConditions.ruptly)
         ],
         // And shows the extension's page action.
         actions: [ new chrome.declarativeContent.ShowPageAction() ]
@@ -206,7 +110,7 @@ function tabbize(arr) {
     //It is an array, we must make each row individually and then join them together
     var returnStrings = [];
 
-    for (i in arr.title) {
+    for (var i in arr.title) {
       var thisRow = makeRow(arr,i);
 
 
@@ -225,12 +129,12 @@ function getInitials(promptQuestion,promptDefault) {
 
     //This will either be the user's initials or blank if we don't have them stored
     promptDefault = promptDefault || "";
-    initials = null;
+    var initials = null;
 
     
     //Annoying, but we keep asking for initials. This is important!
     while (initials == null) {
-      var initials = prompt(promptQuestion, promptDefault);
+      initials = prompt(promptQuestion, promptDefault);
     }
 
     return initials;
@@ -238,7 +142,7 @@ function getInitials(promptQuestion,promptDefault) {
 
 //User has right clicked on the app icon. This brings up the contextual menu
 function handleRightClick(info,tab) {
-    var id = info["menuItemId"];
+    var id = info.menuItemId;
     debug(info);
     debug(id);
 
@@ -269,7 +173,7 @@ function handleRightClick(info,tab) {
     if (id == "set-initials") {
       testItems = chrome.storage.sync.get(['initials'], function(items) {
 
-        var initials = items["initials"];
+        var initials = items.initials;
         var myDate = new Date();
         var mySecs = myDate.getTime() ;
         var inits = getInitials("Please enter your initials",initials);
@@ -295,15 +199,15 @@ function handleClick(tab) {
 
 
   var lastUp = 0;
-  inits = ""
+  inits = "";
 
   setupAnimation("Thinking");
 
   //Get when the last initials were
   testItems = chrome.storage.sync.get(['initials','lastUpdate'], function(items) {
 
-    var initials = items["initials"];
-    var lastUpdate = items["lastUpdate"];
+    var initials = items.initials;
+    var lastUpdate = items.lastUpdate;
     var needUpdate = false;
 
     debug("Initials: "+initials);
@@ -321,7 +225,7 @@ function handleClick(tab) {
       inits = getInitials("Please enter your initials");
     }
 
-    var timePassed = mySecs - lastUp
+    var timePassed = mySecs - lastUp;
     debug("Time passed: "+timePassed/1000);
 
     if (timePassed > secondDiff) {

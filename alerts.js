@@ -3,16 +3,25 @@
 var sdHeader = "This content is only available in standard definition";
 var sdMessage = "Where possible, please only use HD content. Unless this clip is indispensible, consider looking for an alternative.";
 var noCreditHeader = "Credit is missing";
-var noCreditMessage = "There doesn't appear to be a credit listed for this video. It is important to be sure that a credit is attached to every clip. Please enter it manually."
+var noCreditMessage = "There doesn't appear to be a credit listed for this video. It is important to be sure that a credit is attached to every clip. Please enter it manually.";
 var copyrightHeader = "This clip does not have a Creative Commons License";
 var copyrightMessage = "Generally, only Creative Commons-licensed footage is usable. There are exceptions to this rule. The White House YouTube channel, for example, improperly posts their clips with a Standard YouTube License. Please be sure to add a note in the spreadsheet why this clip is an exception to the Creative Commons rule.";
-var pond5MoneyHeader = "Clip costs money"
-var pond5MoneyMessage = "This clip is a pay clip from Pond5. Only Pond5 public domain footage is usable. Please limit your search to the public domain."
+var pond5MoneyHeader = "Clip costs money";
+var pond5MoneyMessage = "This clip is a pay clip from Pond5. Only Pond5 public domain footage is usable. Please limit your search to the public domain.";
+var reutersConnectHeader = "This clip requires a different Reuters subscription";
+var reutersConnectMessage = "This clip requires a Reuters \"Points\" subscription, which we don't have access to. Unfortunately, we will not be able to use this clip.";
 
 function closeWarning() {
-    $("#creditCopy_modal").plainModal('close');
-    $("#creditCopy_modal").remove();
-    $(".plainmodal-overlay").remove();  
+
+    try {
+        $("#creditCopy_modal").plainModal('close');
+        $("#creditCopy_modal").remove();
+        $(".plainmodal-overlay").remove();  
+    } catch (err) {
+        debug("Couldn't close");
+        debug(err);
+    }
+    
 }
 
 //Flashes up a box with warning info about a clip.
@@ -21,22 +30,35 @@ function closeWarning() {
 //heading is an array of h3 headers for the various warnings you may have
 //message is an array of p explanatory text for each warning
 //Type should be blank for a yellow warning or any other value for a red warning
-function flashWarning(h1,heading, message,type) {
-    color_class = "gdcc-warning"
+function flashWarning(h1,heading, message,type) {   
+    
+    color_class = "gdcc-warning";
     if (type!=undefined) {
-        color_class = "gdcc-halt"
+        color_class = "gdcc-halt";
+    }
+
+    //Store the errors in a global variable if we're in testing mode
+    if (testingMode) {
+        pageErrors = {
+            'class': color_class,
+            'errs': []
+        };
     }
 
     msg = "<h1 class='"+color_class+"'>"+h1+"</h1>";
-    for (m in message) {
+    for (var m in message) {
         msg = msg + "<h3 class='"+color_class+"'>" + heading[m] + "</h3>"+"<p class='"+color_class+"'>"+message[m]+"</p>";
+        if (testingMode) {
+            pageErrors.errs.push(heading[m]);
+        }
     }
+
     msg = msg + "</div>";
 
     closeWarning();
 
     $("body").prepend("<div id='creditCopy_modal' class='"+color_class+"'><div class='creditCopy_plainmodal-close "+color_class+"'></div>"+msg);
-
+    
     $('#creditCopy_modal').plainModal('open', {
         closeClass:     'creditCopy_plainmodal-close'
     });
@@ -44,8 +66,9 @@ function flashWarning(h1,heading, message,type) {
 }
 
 //This function allows you to select a clip from a modal window
-//LabelField is what field to put in the select dropdown. If null, will use numbers
-function showSelectionModal(fieldObject,labelField = null) {
+//usrLabelField is what field to put in the select dropdown. If null, will use numbers
+function showSelectionModal(fieldObject,usrLabelField) {
+    var labelField = usrLabelField || null;
     debug("Gonna show the modal");
     debug("Label field is: "+labelField);
     var msg = "<h1>There are multiple clips listed</h1>";
@@ -103,12 +126,12 @@ function showSelectionModal(fieldObject,labelField = null) {
                     message(fieldObject);
                 } else {
                     var singleFieldObject = {};
-                    singleFieldObject.filename = getValAtIndex(fieldObject.filename,selectedClip)
-                    singleFieldObject.title = getValAtIndex(fieldObject.title,selectedClip)
-                    singleFieldObject.source = getValAtIndex(fieldObject.source,selectedClip)
-                    singleFieldObject.license = getValAtIndex(fieldObject.license,selectedClip)
-                    singleFieldObject.credits = getValAtIndex(fieldObject.credits,selectedClip)
-                    singleFieldObject.url = getValAtIndex(fieldObject.url,selectedClip)
+                    singleFieldObject.filename = getValAtIndex(fieldObject.filename,selectedClip);
+                    singleFieldObject.title = getValAtIndex(fieldObject.title,selectedClip);
+                    singleFieldObject.source = getValAtIndex(fieldObject.source,selectedClip);
+                    singleFieldObject.license = getValAtIndex(fieldObject.license,selectedClip);
+                    singleFieldObject.credits = getValAtIndex(fieldObject.credits,selectedClip);
+                    singleFieldObject.url = getValAtIndex(fieldObject.url,selectedClip);
                     singleFieldObject.expectArray = false;
                     message(singleFieldObject);
                 }

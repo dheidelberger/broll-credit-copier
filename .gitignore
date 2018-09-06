@@ -31,3 +31,10 @@ apikeys.js
 #This file has two variables:
 #var youtubeKey = "[GOOGLE API KEY]";
 #var vimeoKey = "Bearer [VIMEO OAUTH TOKEN]";
+
+node_modules/
+
+#This has login information for sites that need to be logged into during testing
+test-helpers/logins.json
+
+build/*

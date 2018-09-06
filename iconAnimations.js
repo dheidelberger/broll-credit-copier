@@ -9,26 +9,22 @@ var modeSize = {
   "Success": 31,
   "Fail": 31,
   "Warning": 31 
-}
+};
 
 var iconTimer = null;
 
 
-function setupAnimation(mode,playOnce=false) {
+function setupAnimation(mode,myPlayOnce) {
+  var playOnce = myPlayOnce || false;
   window.clearTimeout(iconTimer);
-  debug("Setting up. Play once? "+playOnce)
+  debug("Setting up. Play once? "+playOnce);
   iconMode = mode;
   iconIndex = 0;
   iconTimer = window.setTimeout(animateIcon, iconDelay, mode,playOnce);
-
-
 }
 
-
-
-
-function animateIcon(mode, playOnce = false)
-{               
+function animateIcon(mode, myPlayOnce) {
+  var playOnce = myPlayOnce || false;               
   debug("Animate: "+mode+", index: "+iconIndex);
 
   if (mode === "Static") {
@@ -41,8 +37,6 @@ function animateIcon(mode, playOnce = false)
       }});
 
       return;
-
-
   }
 
   if (mode === iconMode) {
@@ -55,7 +49,7 @@ function animateIcon(mode, playOnce = false)
           32: folder+"/32/"+name,
 
         }});
-      iconIndex = iconIndex+1
+      iconIndex = iconIndex+1;
 
       if ((iconIndex >= modeSize[mode]) && (playOnce)) {
         debug("We're not going to play any more");

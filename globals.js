@@ -1,8 +1,19 @@
 //In debug mode, all debug() calls will print to the console
 var debugMode = true;
 
+//Preprocessing directive to turn off debugging if in production
+//This is activated from Gulp
+/* @ifdef PRODUCTION **
+debugMode = false;
+/* @endif */
+
+
+
 //In silent mode, ccLog() calls will not print to the console
 var silentMode = false;
+
+//Testing mode - used for running our tests - redirects some Chrome Extension specific calls
+var testingMode = false;
 
 
 //Only print these log messages in debug mode

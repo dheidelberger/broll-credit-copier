@@ -23,6 +23,7 @@ function message(fieldObject) {
 	}
 
 
+
 	ccLog("Filename: "+fieldObject.filename);
 	ccLog("Title   : "+fieldObject.title);
 	ccLog("Source  : "+fieldObject.source);
@@ -32,7 +33,18 @@ function message(fieldObject) {
 	ccLog("Status  : "+fieldObject.status);
 	ccLog("Array?  : "+fieldObject.expectArray);
 
-	chrome.runtime.sendMessage({fields: fieldObject});
+	//If we're in testing mode, we don't actually send the message
+	//Instead, we set a globbal variable and append a div to the DOM. 
+	//The test script is watching for this div
+	if (!testingMode) {
+		chrome.runtime.sendMessage({fields: fieldObject});
+	} else {
+		returnMessage = fieldObject;
+		var signalNode = document.createElement('div');
+		signalNode.className = 'broll-credit-copier-result';
+		document.body.appendChild(signalNode);	
+	}
+	
 
 }
 
@@ -48,7 +60,7 @@ function message(fieldObject) {
 
 
 function dvids() {
-	var fieldObject = {}
+	var fieldObject = {};
 	fieldObject.url = window.location.href;
 	fieldObject.title = $("h1.asset-title").text();
 	
@@ -86,17 +98,19 @@ function youtube() {
 	var xhr = new XMLHttpRequest();
 	xhr.timeout = 4000;
 
+	var fieldObject = {};
+
 	xhr.ontimeout = function () {
-		var fieldObject = {};
-		fieldObject.status = "Fail"
+		fieldObject = {};
+		fieldObject.status = "Fail";
 		flashWarning("Error",["Request timed out"],["The request to the YouTube API timed out. Please try again later"],"red");
 		message(fieldObject);
-	}
+	};
 
 	xhr.onreadystatechange = function () {
 		debug(this.status);
 		if (this.readyState == 4 && this.status == 200){
-			var fieldObject = {};
+			fieldObject = {};
 			fieldObject.url = linkURL;
 			fieldObject.filename = "";
 
@@ -122,13 +136,13 @@ function youtube() {
 			if (fieldObject.license == "youtube") {
 				needWarning = true;
 				warningHdr.push(copyrightHeader);
-				warningMsg.push(copyrightMessage)
+				warningMsg.push(copyrightMessage);
 
 			}
 
 			if (needWarning) {
-				fieldObject.status = "Warning"
-				flashWarning("Warning",warningHdr,warningMsg)
+				fieldObject.status = "Warning";
+				flashWarning("Warning",warningHdr,warningMsg);
 
 			}
 
@@ -140,8 +154,8 @@ function youtube() {
 
 
 		} else if (this.readyState == 4 && this.status != 200) {
-			var fieldObject = {};
-			fieldObject.status = "Fail"
+			fieldObject = {};
+			fieldObject.status = "Fail";
 			ccLog(this.responseText);
 			var errorMsg = JSON.parse(this.responseText).error.message;
 			flashWarning("Error Code: " +this.status,["YouTube API returned an error"],[errorMsg],"red");
@@ -186,7 +200,7 @@ function aparchive() {
 
 function apimages() {
 	var url = window.location.href;
-	var title = $("div.ltNvPnl h1").text()
+	var title = $("div.ltNvPnl h1").text();
 	var storyID = $("table.dnmkTbl tr:contains('ID:') td").eq(1).text().trim();
 
 	title = title + " ("+storyID+")";
@@ -199,7 +213,7 @@ function apimages() {
 	fieldObject.title = title;
 	fieldObject.source = "AP";
 	fieldObject.license = "AP";
-	fieldObject.credits = "AP|"+credit
+	fieldObject.credits = "AP|"+credit;
 	fieldObject.url = url;
 
 	message(fieldObject);
@@ -215,7 +229,7 @@ function newscom() {
 
 	var leftURL = url.split("?")[0];
 
-	var url = leftURL+"?searchString="+searchString
+	url = leftURL+"?searchString="+searchString;
 	
 	var title = $("div.displaydetails:contains('Headline')").eq(0).next().text();
 
@@ -276,10 +290,10 @@ function vimeo() {
 	xhr.timeout = 4000;
 
 	xhr.ontimeout = function () {
-		fieldObject.status = "Fail"
+		fieldObject.status = "Fail";
 		flashWarning("Error",["Request timed out"],["The request to the Vimeo API timed out. Please try again later"],"red");
 		message(fieldObject);
-	}
+	};
 
 	xhr.onreadystatechange = function () {
 		debug(this.status);
@@ -288,7 +302,7 @@ function vimeo() {
 		    vimeoData = this.responseText;
 
 		    debug(this.responseText);
-		    debug(this.getAllResponseHeaders())
+		    debug(this.getAllResponseHeaders());
 		    
 
 		    var vimObject = JSON.parse(vimeoData);
@@ -339,7 +353,7 @@ function vimeo() {
 			message(fieldObject);	
 
 		} else if (this.readyState == 4 && this.status != 200) {
-			fieldObject.status = "Fail"
+			fieldObject.status = "Fail";
 			ccLog(this.responseText);
 			var errorMsg = JSON.parse(this.responseText).error;
 			flashWarning("Error Code: " +this.status,["Vimeo API returned an error"],[errorMsg],"red");
@@ -360,7 +374,7 @@ function vimeo() {
 
 function videoblocks() {	
 	var url = window.location.href;
-	var title = $("h1").text()
+	var title = $("h1").text();
 
 	var buttonText = $('button#stock-item-primary-action-button').text().trim();
 	var fieldObject = {};
@@ -369,15 +383,15 @@ function videoblocks() {
 
 	if (buttonText === "Add to Cart") {
 		fieldObject.status = "Fail";
-		flashWarning("Stop",["This clip is not usable"],["This clip is from the VideoBlocks Marketplace, which means it would need to be purchased separately. Please constrain your search to 'Members-Only Content.'"],"halt")
+		flashWarning("Stop",["This clip is not usable"],["This clip is from the VideoBlocks Marketplace, which means it would need to be purchased separately. Please constrain your search to 'Members-Only Content.'"],"halt");
 	}
 
-	fieldObject.filename = ""
+	fieldObject.filename = "";
 	fieldObject.title = title;
-	fieldObject.source = "VideoBlocks"
-	fieldObject.license = "VideoBlocks"
-	fieldObject.credits = "VideoBlocks"
-	fieldObject.url = url
+	fieldObject.source = "VideoBlocks";
+	fieldObject.license = "VideoBlocks";
+	fieldObject.credits = "VideoBlocks";
+	fieldObject.url = url;
 	message(fieldObject);
 	
 }
@@ -390,7 +404,7 @@ function unifeed() {
 	//Seems to be less reliable than the new method below
 	//var file = $("div.multimedia_asset_node_field_title:contains('Alternate Title')").next().text().trim();
 
-	var file = $("meta[property='og:image']").attr('content').split("/").pop().split(".")[0]
+	var file = $("meta[property='og:image']").attr('content').split("/").pop().split(".")[0];
 
 	var fieldObject = {};
 	fieldObject.filename = file;
@@ -439,8 +453,14 @@ function flickr() {
 		case 6:
 			license = "BY-ND";
 			break;
-		case 8:
-			license = "Public Domain";
+		case 8: //PD Gvt
+			license = "Public Domain (Government)";
+			break;
+		case 9: //PD0
+			license = "Public Dommain (CC0)";
+			break;
+		case 10: //	PD mark
+			license = "Public Domain (Marked as)";
 			break;
 	    default:
 	        license = "Unkown";
@@ -450,7 +470,7 @@ function flickr() {
 	
 	if (license == "COPYRIGHTED") {
 		fieldObject.status = "Warning";
-		flashWarning("Warning",[copyrightHeader],[copyrightMessage])
+		flashWarning("Warning",[copyrightHeader],[copyrightMessage]);
 	}
 
 	fieldObject.filename = "";
@@ -482,8 +502,23 @@ function freeSound() {
 //Reuters Connect. Replacement for MediaExpress, and very simimlar page structure.
 //Unlike MediaExpress, there are no clip bundles. Makes life much easier!
 function reutersConnect() {
+
+
+
+
 	var fieldObject = {};
 	var credit = "Reuters";
+
+	//Check if this is points-based. If so, it's not part of our subscription.
+	var pointValue = $('div[data-qa-component=points-button] span').attr('data-qa-value');
+
+	//We can't use this clip
+	if (pointValue !== "0") {
+		flashWarning("Warning",[reutersConnectHeader], 
+			[reutersConnectMessage],
+			"Red");
+		fieldObject.status = "Fail";
+	}
 
 	//https://www.reutersconnect.com/all?id=tag%3Areuters.com%2C2018%3Anewsml_LVA0038MX2ERD%3A1&
 
@@ -496,7 +531,7 @@ function reutersConnect() {
 	var title = $("div.item-detail h2[data-qa-component='item-headline").text().replace(/(\r\n|\n|\r)/gm," ");
 
 	var restrictions = $("span[data-qa-component='meta-data-restrictions-value']").text().replace(/(\r\n|\n|\r)/gm,"");
-	var license = "RESTRICTIONS: "+restrictions
+	var license = "RESTRICTIONS: "+restrictions;
 
 	fieldObject.filename = "";
 	fieldObject.title = title;
@@ -521,7 +556,7 @@ function mediaExpress() {
 
 	//Convert the tag to a URL that lets us link back to the story
 	var collectionTag = encodeURIComponent($("span#selected-item-id").text());
-	var collectionURL = "http://mediaexpress.reuters.com/detail/?id=" + collectionTag
+	var collectionURL = "http://mediaexpress.reuters.com/detail/?id=" + collectionTag;
 	
 	var title = $("div.item-detail h2.headline").text().replace(/(\r\n|\n|\r)/gm," ");
 
@@ -532,7 +567,7 @@ function mediaExpress() {
 			flashWarning("Error",["MediaExpress must be in shotlist mode"],
 				["This tool cannot properly copy information for multishot MediaExpress clips unless MediaExpress is in Shotlist mode instead of Slideshow mode."],
 				"Red");
-			fieldObject.status = "Fail"
+			fieldObject.status = "Fail";
 			message(fieldObject);
 			return null;
 		}
@@ -559,7 +594,7 @@ function mediaExpress() {
 		//Get restrictions, if any, for each clip
 		var licenseList = $.map($("div.left li.restrictions"),function(x) {
 			var thisRestriction = $(x).attr("data-qa-value").replace(/(\r\n|\n|\r)/gm,"");
-			return "RESTRICTIONS: "+thisRestriction
+			return "RESTRICTIONS: "+thisRestriction;
 
 		});
 
@@ -578,13 +613,13 @@ function mediaExpress() {
 
 	} else { //Just a single shot
 		debug("It's a single shot");
-		var idLink = $('div.fp-playlist a').attr('href')
+		var idLink = $('div.fp-playlist a').attr('href');
 		var idArray = idLink.match(/content\/(.*)\//); 
-		var fullID = idArray[1]
+		var fullID = idArray[1];
 		var restrictions = $("div.right li.restrictions").attr("data-qa-value").replace(/(\r\n|\n|\r)/gm,"");
-		var license = "RESTRICTIONS: "+restrictions
+		var license = "RESTRICTIONS: "+restrictions;
 		var myTag = encodeURIComponent(fullID);
-		var url = baseURL + myTag
+		var url = baseURL + myTag;
 
 		fieldObject.filename = "";
 		fieldObject.title = title;
@@ -599,9 +634,9 @@ function mediaExpress() {
 
 function europeanCommission() {
 	var url = window.location.href;
-	var title = $('h3')[1].innerText.trim()
+	var title = $('h3')[1].innerText.trim();
 	var credit = $('span#agency').text().replace(/.*Source: /i,"").trim();
-	var license = "EC Handout"
+	var license = "EC Handout";
 
 	var fieldObject = {};
 	fieldObject.filename = "";
@@ -629,7 +664,7 @@ function ruptly() {
 
 	var signupText = $('li.ng-hide').text().trim();
 
-	if (signupText != "Sign upLogin") {
+	if (signupText != "Sign upLog In") {
 		flashWarning("Warning",
 			["You are not logged in"],
 			["While this tool will still work if you're not logged in to Ruptly, it has no way of warning you whether or not the content is free to use or pay content. Please consider logging in."]);		
@@ -638,15 +673,14 @@ function ruptly() {
 
 	//This is pay content
 	if ($("button:contains('Calculate the price and buy')").length != 0) {
-		flashWarning("Stop",
-			["This clip is not usable"],
-			["This clip is pay content from Ruptly. Only pool and free footage from Ruptly should be used."],
-			"Red"
-			);
-		fieldObject.status = "Fail";
+		flashWarning("Warning",
+			["This clip is a pay clip"],
+			["This clip is pay content from Ruptly. It is not part of Ruptly's pool and free footage."]
+		);
+		fieldObject.status = "Warning";
 	}
 
-	var fieldObject = {};
+
 	fieldObject.filename = "";
 	fieldObject.title = title;
 	fieldObject.source = "Ruptly";
@@ -661,7 +695,7 @@ function newsmarket() {
 	var title = $("div.title h1").text().trim();
 	var credits = $("b:contains('SOURCE:')")[0].nextElementSibling.innerText + "|The NewsMarket";
 	var license = $("div.asset-usagerights div.visible-text").text().trim();
-	var url = window.location.href
+	var url = window.location.href;
 
 	var fieldObject = {};
 	fieldObject.filename = "";
@@ -700,13 +734,13 @@ function pond5Search(url) {
 
 function pond5Result() {
 	var fieldObject = {};
-	var title = $("h1.ItemDetail-mediaTitle span").text().trim();
+	var title = $("h1#itemDetail-mediaTitle span").text().trim();
 	var url = window.location.href;
-	var price = Number($("span.js-selectedMediaPrice").text().trim().replace("$",""))
+	var price = Number($("span.js-selectedMediaPrice").text().trim().replace("$",""));
 	var license = "Public Domain";
 	if (price>0) {
 		flashWarning("Stop",[pond5MoneyHeader],[pond5MoneyMessage],"Red");
-		license = "Pond5"
+		license = "Pond5";
 		fieldObject.status = "Fail";
 	}
 
@@ -792,10 +826,10 @@ try {
 	}
 
 } catch(err) {
-	var fieldObject = {}
+	var fieldObject = {};
 	fieldObject.status = "Fail";
 	fieldObject.filename = "Could not copy clip information";
-	fieldObject.title = "Error message: "+err.message,
+	fieldObject.title = "Error message: "+err.message;
 	fieldObject.source = "Please report this URL for further investigation";
 	fieldObject.license = "";
 	fieldObject.credits = " ";

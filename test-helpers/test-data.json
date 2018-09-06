@@ -1,0 +1,67 @@
+{
+    "youtube":{
+        "normal":{"message":{"url":"https://www.youtube.com/watch?v=_IOnZfcV6zY","filename":"","title":"Statements by Secretary of State Mike Pompeo and Prime Minister of Israel Benjamin Netanyahu.","license":"creativeCommon","credits":"U.S. Embassy Jerusalem","source":"YouTube","status":"Success","expectArray":false},"errs":{}},
+        "ccwarning":{"message":{"url":"https://www.youtube.com/watch?v=_EAzoGS33lk","filename":"","title":"President Donald J. Trump Signs an Executive Order Protecting Americans' Retirement","license":"youtube","credits":"The White House","status":"Warning","source":"YouTube","expectArray":false},"errs":{"class":"gdcc-warning","errs":["This clip does not have a Creative Commons License"]}},
+        "sdwarning":{"message":{"url":"https://www.youtube.com/watch?v=CwbPkcHA4HU","filename":"","title":"Barack Obama","license":"creativeCommon","credits":"PAprogressive","status":"Warning","source":"YouTube","expectArray":false},"errs":{"class":"gdcc-warning","errs":["This content is only available in standard definition"]}},
+        "allwarnings":{"message":{"url":"https://www.youtube.com/watch?v=cpPABLW6F_A","filename":"","title":"Either you are with us or you are with the terrorists","license":"youtube","credits":"boredjoewo","status":"Warning","source":"YouTube","expectArray":false},"errs":{"class":"gdcc-warning","errs":["This content is only available in standard definition","This clip does not have a Creative Commons License"]}}
+    },
+    "dvids":{
+        "oneCreator":{"message":{"url":"https://www.dvidshub.net/video/612943/doorstep-nato-secretary-general","title":"Doorstep of NATO Secretary General","credits":"Natochannel","filename":"","source":"DVIDS","license":"DVIDS","status":"Success","expectArray":false},"errs":{}},
+        "twoCreators":{"message":{"url":"https://www.dvidshub.net/video/603044/lafayette-escadrille-memorial-day-ceremony-2018-2","title":"Lafayette Escadrille Memorial Day Ceremony 2018-2","credits":"Petty Officer 3rd Class Evan Parker|Defense Media Activity - Europe Africa","filename":"","source":"DVIDS","license":"DVIDS","status":"Success","expectArray":false},"errs":{}}
+    },
+    "vimeo":{
+        "normal":{"message":{"filename":"","title":"PARIS","source":"Vimeo","license":"by","credits":"Alfred Marroquin","url":"https://vimeo.com/59674991","status":"Success","expectArray":false},"errs":{}},
+        "ccwarning":{"message":{"status":"Warning","filename":"","title":"The Quiet City: Winter in Paris","source":"Vimeo","license":"COPYRIGHTED","credits":"Andrew Julian","url":"https://vimeo.com/62959319","expectArray":false},"errs":{"class":"gdcc-warning","errs":["This clip does not have a Creative Commons License"]}},
+        "sdwarning":{"message":{"status":"Warning","filename":"","title":"Live Visual Performance at UDO bar Paris","source":"Vimeo","license":"by-nd","credits":"Los Patos - Pintaycolorea","url":"https://vimeo.com/27247288","expectArray":false},"errs":{"class":"gdcc-warning","errs":["This content is only available in standard definition"]}},
+        "allwarnings":{"message":{"status":"Warning","filename":"","title":"Paris: Centre Pompidou","source":"Vimeo","license":"COPYRIGHTED","credits":"DCE","url":"https://vimeo.com/406","expectArray":false},"errs":{"class":"gdcc-warning","errs":["This clip does not have a Creative Commons License","This content is only available in standard definition"]}},
+        "private":{"message":{"status":"Fail","expectArray":false},"errs":{"class":"gdcc-halt","errs":["Private Video"]}}
+    },
+    "videoblocks":{
+        "normal":{"message":{"filename":"","title":"business buildings. company. glass architecture. aerial view","source":"VideoBlocks","license":"VideoBlocks","credits":"VideoBlocks","url":"https://www.videoblocks.com/video/business-buildings-company-glass-architecture-aerial-view-s4hgjsain20mjqn","status":"Success","expectArray":false},"errs":{}},
+        "marketplace":{"message":{"status":"Fail","filename":"","title":"Fast Compilation of Paris Attack and Breaking News Reports","source":"VideoBlocks","license":"VideoBlocks","credits":"VideoBlocks","url":"https://www.videoblocks.com/video/fast-compilation-of-paris-attack-and-breaking-news-reports-7luhzun","expectArray":false},"errs":{"class":"gdcc-halt","errs":["This clip is not usable"]}}
+    },
+    "aparchive":{
+        "normal":{"message":{"filename":"","title":"China MOFA (4019990)","source":"AP","licenseGood":"AP","credits":"AP","url":"http://www.aparchive.com/metadata/China-MOFA/a79a5a7b57fb63fabd4e4db14f6e18d3","status":"Success","expectArray":false},"errs":{}}
+    },
+    "apimages":{
+        "normal":{"message":{"filename":"","title":"China Africa (18247460669295)","source":"AP","license":"AP","credits":"AP|Lintao Zhang","url":"http://www.apimages.com/metadata/Index/China-Africa/c0d5a0b6ba5b4b6aba8491f07b388fa5/13/0","status":"Success","expectArray":false},"errs":{}}
+    },
+    "unifeed":{
+        "normal":{"message":{"filename":"unifeed180503d","title":"BANGLADESH / ROHINGYA MONSOON","source":"Unifeed","license":"Unifeed","credits":"UNIFEED","url":"https://www.unmultimedia.org/tv/unifeed/asset/2143/2143864/","status":"Success","expectArray":false},"errs":{}}
+    },
+    "flickr":{
+        "CC BY-NC-SA":{"message":{"filename":"","title":"Tehran - 1392","source":"Flickr","license":"BY-NC-SA","credits":"nima; hopographer","url":"https://www.flickr.com/photos/nimasadigh/12241249534/","status":"Success","expectArray":false},"errs":{}},
+        "CC BY":{"message":{"filename":"","title":"Tehran","source":"Flickr","license":"BY","credits":"Thibault Laurens","url":"https://www.flickr.com/photos/tlaurens/44019910211/","status":"Success","expectArray":false},"errs":{}},
+        "CC BY-NC":{"message":{"filename":"","title":"Grandmother","source":"Flickr","license":"BY-NC","credits":"Babak Fakhamzadeh","url":"https://www.flickr.com/photos/mastababa/326149154/","status":"Success","expectArray":false},"errs":{}},
+        "CC BY-NC-ND":{"message":{"filename":"","title":"Commander Hamed","source":"Flickr","license":"BY-NC-ND","credits":"looking4poetry","url":"https://www.flickr.com/photos/looking4poetry/526740389/","status":"Success","expectArray":false},"errs":{}},
+        "CC BY-SA":{"message":{"filename":"","title":"Mosque inside the bazar, Tehran, Iran","source":"Flickr","license":"BY-SA","credits":"Fulvio Spada","url":"https://www.flickr.com/photos/lfphotos/1249296992/","status":"Success","expectArray":false},"errs":{}},
+        "CC BY-ND":{"message":{"filename":"","title":"Bokeh night","source":"Flickr","license":"BY-ND","credits":"hapal","url":"https://www.flickr.com/photos/hapal/3271040109/","status":"Success","expectArray":false},"errs":{}},
+        "PD0":{"message":{"filename":"","title":"IMG_8892 Tehran, Iran","source":"Flickr","license":"Public Dommain (CC0)","credits":"Ninara","url":"https://www.flickr.com/photos/ninara/16343274934/","status":"Success","expectArray":false},"errs":{}},
+        "PD Mark":{"message":{"filename":"","title":"149-01","source":"Flickr","license":"Public Domain (Marked as)","credits":"adl18","url":"https://www.flickr.com/photos/158655717@N06/36893862911/","status":"Success","expectArray":false},"errs":{}},
+        "Government":{"message":{"filename":"","title":"The Secretary Walks by the Wiener Musikverein, Home to the Vienna Philharmonic Orchestra","source":"Flickr","license":"Public Domain (Government)","credits":"U.S. Department of State","url":"https://www.flickr.com/photos/statephotos/19669726821/","status":"Success","expectArray":false},"errs":{}},
+        "copyright":{"message":{"status":"Warning","filename":"","title":"street musician Tehran","source":"Flickr","license":"COPYRIGHTED","credits":"Peter Velthoen","url":"https://www.flickr.com/photos/131021490@N02/41395323945/","expectArray":false},"errs":{"class":"gdcc-warning","errs":["This clip does not have a Creative Commons License"]}}
+    },
+    "freesound":{
+        "pd":{"message":{"filename":"","title":"ScissorsCutting.wav","source":"FreeSound","license":"publicdomain","credits":"Sclolex","url":"https://freesound.org/people/Sclolex/sounds/236007/","status":"Success","expectArray":false},"errs":{}},
+        "cc":{"message":{"filename":"","title":"Explosion","source":"FreeSound","license":"by","credits":"Iwiploppenisse","url":"https://freesound.org/people/Iwiploppenisse/sounds/156031/","status":"Success","expectArray":false},"errs":{}}
+    },
+    "pond5":{
+        "pd":{"message":{"filename":"","title":"Marine Corps Discussing During Council Of War","source":"Pond5","license":"Public Domain","credits":"Pond5","url":"https://www.pond5.com/stock-footage/44594242/marine-corps-discussing-during-council-war.html","status":"Success","expectArray":false},"errs":{}},
+        "pay":{"message":{"status":"Fail","filename":"","title":"Marine Ls3 Robot Patrols With Marines","source":"Pond5","license":"Pond5","credits":"Pond5","url":"https://www.pond5.com/stock-footage/43113545/marine-ls3-robot-patrols-marines.html","expectArray":false},"errs":{"class":"gdcc-halt","errs":["Clip costs money"]}}
+    },
+    "ec":{
+        "normal":{"message":{"filename":"","title":"Weekly meeting of the Juncker Commission","source":"European Commission","license":"EC Handout","credits":"EC -  Audiovisual Service","url":"http://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=I159743","status":"Success","expectArray":false},"errs":{}}
+    },
+    "newsmarket":{
+        "normal":{"message":{"filename":"","title":"Toyota Aygo - Crash Tests 2014 - with captions","source":"The NewsMarket","license":"This media asset is free for editorial broadcast, print, online and radio use. It is restricted for use for other purposes.","credits":"Euro NCAP|The NewsMarket","url":"https://www.thenewsmarket.com/GLOBAL/Euro-NCAP/video/toyota-aygo---crash-tests-2014---with-captions/a/311d659e-f75f-45c7-ade1-5e9af5ca9a3e","status":"Success","expectArray":false},"errs":{}}
+    },
+    "ruptly":{
+        "notloggedin":{"message":{"filename":"","title":"Portugal: Ronaldo-less Portugal gets ready for action against Croatia","source":"Ruptly","license":"Ruptly","credits":"Ruptly","url":"https://ruptly.tv/vod/20180905-021","status":"Warning","expectArray":false},"errs":{"class":"gdcc-warning","errs":["You are not logged in"]}},
+        "normal":{"message":{"filename":"","title":"Syria: Russian MoD releases footage of strikes on militant targets in Idlib","source":"Ruptly","license":"Ruptly","credits":"Ruptly","url":"https://ruptly.tv/vod/20180905-033","status":"Success","expectArray":false},"errs":{}},
+        "payclip":{"message":{"status":"Warning","filename":"","title":"Germany: 'Defence in the foreground' - Loew ahead of France clash","source":"Ruptly","license":"Ruptly","credits":"Ruptly","url":"https://ruptly.tv/vod/20180905-026","expectArray":false},"errs":{"class":"gdcc-warning","errs":["This clip is a pay clip"]}}
+    },
+    "reutersconnect":{
+        "normal":{"message":{"filename":"","title":"Patriotic demonstration by young French soldiers","source":"Reuters Connect","license":"RESTRICTIONS: Audio restrictions: This clip's Audio includes copyrighted material.  User is responsible for obtaining additional clearances before publishing the audio contained in this clip.","credits":"Reuters","url":"https://www.reutersconnect.com/all?share=true&id=tag%3Areuters.com%2C1915%3Anewsml_LVA4ZQSQF5TCVIG1LGEQEES2O1CD%3A2","status":"Success","expectArray":false},"errs":{}},
+        "points":{"message":{"status":"Fail","filename":"","title":"An undated archive picture shows French artillery officers on the phone relaying instructions to adjust cannon fire in a trench on the front line, at an unknown location in France","source":"Reuters Connect","license":"RESTRICTIONS: ","credits":"Reuters","url":"https://www.reutersconnect.com/all?share=true&id=tag%3Areuters.com%2C1915%3Anewsml_GM1EA5M19RO01%3A896790138","expectArray":false},"errs":{"class":"gdcc-halt","errs":["This clip requires a different Reuters subscription"]}}
+    }
+}
