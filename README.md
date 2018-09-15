@@ -41,7 +41,7 @@ You are also free to download and adapt the code as you like. Please be sure to 
 
 The code should work out-of-the-box except that you'll need to use your own API keys for YouTube and Vimeo. You can find directions for how to do that in [apikeys.sample.js](apikeys.sample.js). Check out the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) for information about how to install an extension you are developing.
 
-As of version 2.0.4, I'm including jQuery and the jQuery plainmodal plugin in the git repo. I realize that this is a somewhat frowned upon decision, but my reason for doing so is to make it so it really does work out-of-the-box and a novice who wants to tinker with the code doesn't have to deal with soem sort of package installer. Feel free to delete the contents of the 'libs' folder and download your own versions of [jQuery](https://jquery.com/) and [jQuery plainmodal](https://github.com/anseki/jquery-plainmodal). You'll have to modify the executeScripts code in [background.js](background.js#L340-L341) if the library file names are different.
+As of version 2.0.4, I'm including jQuery and the jQuery plainmodal plugin in the git repo. I realize that this is a somewhat frowned upon decision, but my reason for doing so is to make it so it really does work out-of-the-box and a novice who wants to tinker with the code doesn't have to deal with some sort of package installer. Feel free to delete the contents of the 'libs' folder and download your own versions of [jQuery](https://jquery.com/) and [jQuery plainmodal](https://github.com/anseki/jquery-plainmodal). You'll have to modify the executeScripts code in [background.js](background.js#L340-L341) if the library file names are different.
 
 ## Usage
 

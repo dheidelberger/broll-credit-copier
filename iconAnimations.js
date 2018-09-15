@@ -25,14 +25,14 @@ function setupAnimation(mode,myPlayOnce) {
 
 function animateIcon(mode, myPlayOnce) {
   var playOnce = myPlayOnce || false;               
-  debug("Animate: "+mode+", index: "+iconIndex);
+  //debug("Animate: "+mode+", index: "+iconIndex);
 
   if (mode === "Static") {
       chrome.pageAction.setIcon({tabId: theTab.id, 
       path: {
-        16: "images/icon16.png",
-        24: "images/icon24.png",
-        32: "images/icon32.png",
+        16: "../images/icon16.png",
+        24: "../images/icon24.png",
+        32: "../images/icon32.png",
 
       }});
 
@@ -40,7 +40,7 @@ function animateIcon(mode, myPlayOnce) {
   }
 
   if (mode === iconMode) {
-    var folder = "images/icon"+mode;
+    var folder = "../images/icon"+mode;
     var name = "icon"+mode+iconIndex+".png";
     chrome.pageAction.setIcon({tabId: theTab.id, 
         path: {

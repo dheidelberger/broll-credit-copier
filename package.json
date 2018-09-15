@@ -1,11 +1,12 @@
 {
   "name": "broll-credit-copier",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test2": "./node_modules/mocha/bin/mocha",
-    "test": "mocha"
+    "test": "mocha",
+    "build": "gulp"
   },
   "author": "David Heidelbegrer <david.heidelberger@gmail.com> (http://www.davidheidelberger.com)",
   "license": "ISC",

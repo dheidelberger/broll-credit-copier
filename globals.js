@@ -50,3 +50,21 @@ function getParameterByName(name, url) {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+//Source: https://stackoverflow.com/questions/190852/how-can-i-get-file-extensions-with-javascript/1203361#1203361
+function getExtension(filename){
+  var a = filename.split(".");
+  if( a.length === 1 || ( a[0] === "" && a.length === 2 ) ) {
+    return "";
+  }
+  return a.pop();    // feel free to tack .toLowerCase() here if you want
+
+}
+
+function loadScript(scriptName, callback) {
+  var scriptEl = document.createElement('script');
+  scriptEl.src = chrome.extension.getURL('sites/' + scriptName);
+  scriptEl.addEventListener('load', callback, false);
+  document.head.appendChild(scriptEl);
+}
+

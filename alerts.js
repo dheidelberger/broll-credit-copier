@@ -6,10 +6,6 @@ var noCreditHeader = "Credit is missing";
 var noCreditMessage = "There doesn't appear to be a credit listed for this video. It is important to be sure that a credit is attached to every clip. Please enter it manually.";
 var copyrightHeader = "This clip does not have a Creative Commons License";
 var copyrightMessage = "Generally, only Creative Commons-licensed footage is usable. There are exceptions to this rule. The White House YouTube channel, for example, improperly posts their clips with a Standard YouTube License. Please be sure to add a note in the spreadsheet why this clip is an exception to the Creative Commons rule.";
-var pond5MoneyHeader = "Clip costs money";
-var pond5MoneyMessage = "This clip is a pay clip from Pond5. Only Pond5 public domain footage is usable. Please limit your search to the public domain.";
-var reutersConnectHeader = "This clip requires a different Reuters subscription";
-var reutersConnectMessage = "This clip requires a Reuters \"Points\" subscription, which we don't have access to. Unfortunately, we will not be able to use this clip.";
 
 function closeWarning() {
 

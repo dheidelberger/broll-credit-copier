@@ -1,0 +1,20 @@
+sites.push({
+
+    name: "Sample",
+
+    stateMatcher: {
+        //Put your stateMatcher object here
+        //See https://developer.chrome.com/extensions/declarativeContent#type-PageStateMatcher    
+    },
+
+    contentScript: function() {
+        //Put your helper functions here
+        //For example:
+        //var youtube = function() {}...
+
+        //Must include a test here for whether or not to call the helper function
+        //if (url.includes("youtube.com")) {
+        //  youtube();
+        //}
+    }
+});
