@@ -49,7 +49,7 @@ sites.push({
             //Get the title
             var title = $("div.item-detail h2[data-qa-component='item-headline").text().replace(/(\r\n|\n|\r)/gm," ");
             
-            var restrictions = $("span[data-qa-component='meta-data-restrictions-value']").text().replace(/(\r\n|\n|\r)/gm,"");
+            var restrictions = $("span[data-qa-component='meta-data-story-restrictions-value']").text().replace(/(\r\n|\n|\r)/gm,"");
             var license = "RESTRICTIONS: "+restrictions;
             
 
