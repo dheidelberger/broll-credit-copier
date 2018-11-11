@@ -195,12 +195,11 @@ chrome.runtime.onMessage.addListener(
     promptDefault = promptDefault || "";
     var initials = null;
     
-    
-    
-    initials = prompt(promptQuestion, promptDefault);
-    
-    
-    return initials;
+    //Annoying, but we keep asking for initials. This is important!
+    while (initials == null) {
+      initials = prompt(promptQuestion, promptDefault);
+    }
+     return initials;
   }
   
   //User has right clicked on the app icon. This brings up the contextual menu

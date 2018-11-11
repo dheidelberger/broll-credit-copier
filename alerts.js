@@ -62,16 +62,26 @@ function flashWarning(h1,heading, message,type) {
 }
 
 //This function allows you to select a clip from a modal window
-//usrLabelField is what field to put in the select dropdown. If null, will use numbers
-function showSelectionModal(fieldObject,usrLabelField) {
-    var labelField = usrLabelField || null;
+//Options - optional parameters
+//  usrLabelField - what field to put in the select dropdown. If null, will use numbers
+//  includeSelectAll - bool, whether to give user option to select everything - defaults to true;
+//usrLabelField is 
+function showSelectionModal(fieldObject,options) {
+    var labelField = options.usrLabelField || null;
+    var includeSelectAll = options.includeSelectAll !== false;
     debug("Gonna show the modal");
+    debug("Options: "+options.includeSelectAll);
     debug("Label field is: "+labelField);
+    debug("Show select all: "+includeSelectAll);
     var msg = "<h1>There are multiple clips listed</h1>";
     msg = msg + "<h3>Please select which you want to copy:</h3>";
     msg = msg + '<select id="selection-list" name="selection-list">';
 
-    var optionList = "<option selected='selected' value='-1'>All Clips (Multiple Lines)</option>";
+    var optionList = "";
+    if (includeSelectAll) {
+        optionList = "<option selected='selected' value='-1'>All Clips (Multiple Lines)</option>";
+    }
+    
 
     for (var i = 0; i<fieldObject.url.length; i++) {
         var thisLabel = "Clip "+(i+1);
@@ -119,6 +129,8 @@ function showSelectionModal(fieldObject,usrLabelField) {
 
                 if (selectedClip === -1) {
                     fieldObject.expectArray = true;
+                    debug("They selected all");
+                    debug(fieldObject);
                     message(fieldObject);
                 } else {
                     var singleFieldObject = {};

@@ -26,6 +26,8 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 \* - I no longer have access to Reuters Newscom, so the tool may or may not work with it any more.
 
 ## NOTE
+Version 2.2.0 implements a new streamlined way of adding a new site. It also breaks the testing implemented in 2.1.0. I'll have to address this in a future update as well as update the documentation which is now severely outdated. Estimated timeframe for these fixes: January 2019.
+
 As of version 2.1.0, I've added a number of new features, most notably testing. This has required a lot of code reconfiguration and also means that there's now a building process for the extension via Gulp. I haven't had time to update this documentation yet, so for the moment, the installation, build, and contribution sections are not very accurate.
 
 ## Installation
@@ -37,7 +39,7 @@ If you're just interested in using the tool, you can install it with one click f
 ### Adapting it to your own workflow
 You are also free to download and adapt the code as you like. Please be sure to read the [License](#license) section for important information about making your own version.
 
-**Note that as of 2.1.0, a number of changes have made this section of the documentation somewhat obsolete. I'll try to update it when I can.**
+**Note that as of 2.1.0, a number of changes have made this section of the documentation somewhat obsolete. I'll try to update it when I can. A build step using [Gulp](https://gulpjs.com/) is now required.**
 
 The code should work out-of-the-box except that you'll need to use your own API keys for YouTube and Vimeo. You can find directions for how to do that in [apikeys.sample.js](apikeys.sample.js). Check out the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) for information about how to install an extension you are developing.
 
@@ -61,7 +63,7 @@ The metadata is copied into a line of tab-separated text with the following colu
 
 ## Contributing
 
-**Note that as of 2.1.0, a number of changes have made this section of the documentation somewhat obsolete. I'll try to update it when I can.**
+**Note that as of 2.1.0, a number of changes have made this section of the documentation somewhat obsolete. I'll try to update it when I can. 2.2.0 breaks this even further. Sites are now added by adding a file to the sites folder. Documentation in severe need of updating.**
 
 If there's another website that you want to add to the tool, please feel free to code it yourself and submit a pull request, or you can submit a feature request on the issue tracker page and I'll try to take a look if and when I have the time.
 
@@ -118,6 +120,7 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.2.0 - Added clip selection functionality for Reuters Connect. Behind the scenes, streamlined the process for adding a new site. Sadly, this breaks testing for the time being.
 * 2.1.0 - Added testing using Node, Google Puppeteer, Mocha, and Chai. A great deal of code refactoring to support the testing framework. Added a build process via Gulp to address some of the refactoring. Many bug fixes including for Ruptly, Flickr, VideoBlocks, and Pond5.
 * 2.0.4 - Added support for Reuters Connect, rewrote Pond5 to accoomodate site redesign, added jquery and jquery.plainmodal to Git repository.
 * 2.0.3 - Improved how MediaExpress multishot clips are reported. User gets more information now about the package link and the clip index)

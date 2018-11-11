@@ -19,8 +19,9 @@ let headless = false;
 //Opts is an optional options object (say that five times fast!)
 //Allowed keys:
 //  bool expectError: must be true if we expect the test to bring up a modal
-//  Page userSessions: an object containing {browser, page}, puppeter Browser and Page objects. Use this when logging in before running the test
+//  Object userSessions: an object containing {browser, page}, puppeter Browser and Page objects. Use this when logging in before running the test
 //  String waitSelector: a string used as an optional selector for a waitFor. Only used if the user has passed in a session
+//  bool printResult: true if you want to print results 
 async function testPage (url,opts) {
 
   var expectError = false;
