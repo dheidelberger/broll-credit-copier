@@ -45,12 +45,13 @@ sites.push({
 
 
 
+
             
             //Get the title
             var title = $("div.item-detail h2[data-qa-component='item-headline").text().replace(/(\r\n|\n|\r)/gm," ");
             
             var restrictions = $("span[data-qa-component='meta-data-story-restrictions-value']").text().replace(/(\r\n|\n|\r)/gm,"");
-            var license = "RESTRICTIONS: "+restrictions;
+            var license = "STORY RESTRICTIONS: "+restrictions;
             
 
             fieldObject.filename = "";
@@ -59,26 +60,55 @@ sites.push({
 
             if (shotCount>1) {
                 debug("More than one:" +shotCount);
-                var options = {includeSelectAll: false};
 
                 var titles = [];               
-                var sources = [];
-                var urls = []; 
+                var urls = [];
+                thumbs.children().find('a:not(.uppercase)').each(function() {urls.push(this.href); });
+
 
                 for (var i = 0; i<shotCount; i++) {
                     debug("Adding: "+i);
-                    sources.push("Reuters Connect: Shot "+(i+1));
-                    urls.push(videoURL+"&shotNumber="+(i+1));
                     titles.push(title+" - Shot "+(i+1));
     
                 }
-                debug(sources);
+
                 debug(urls);
-                fieldObject.source = sources;
+                fieldObject.source = "Reuters Collection Link: "+videoURL;
                 fieldObject.url = urls;
                 fieldObject.title = titles;
 
-                showSelectionModal(fieldObject,options);
+                showSelectionModal(fieldObject,{includeSelectAll: false, 
+                    callback: function(fe) {
+
+                        debug("In the callback. Getting restrictions.");
+                                
+                        debug("Link: "+fe.url);
+                        var tag = getParameterByName("id",fe.url);
+                        debug("Tag: "+tag);
+                        var dataURL = "https://www.reutersconnect.com/api/item/"+tag;
+                        debug("Data URL: "+dataURL );
+                        fetch(dataURL)
+                        .then(function(response){
+                            return response.text();
+                        })
+                        .then(function(data){
+
+                            var restriction = data.match(/\"~:restrictions\",\"(.*?)\",\"~:marketplace/)[1];
+                            debug("Restricton: "+restriction);
+                            
+                            
+                            fe.license = "CLIP RESTRICTIONS: "+restriction+"|"+fe.license;
+
+                            message(fe);
+
+                        })
+                        .catch(function(e) {
+                            var tempLicense = fe.license;
+                            fe.license = "Unable to read clip restrictions. Story restriction: "+tempLicense;
+                            message(fe);
+
+                        });
+                }});
 
             } else {
                 fieldObject.source = "Reuters Connect";

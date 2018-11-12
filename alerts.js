@@ -65,10 +65,11 @@ function flashWarning(h1,heading, message,type) {
 //Options - optional parameters
 //  usrLabelField - what field to put in the select dropdown. If null, will use numbers
 //  includeSelectAll - bool, whether to give user option to select everything - defaults to true;
-//usrLabelField is 
+//  callback - optional callback function instead of passing the message directly
 function showSelectionModal(fieldObject,options) {
     var labelField = options.usrLabelField || null;
     var includeSelectAll = options.includeSelectAll !== false;
+
     debug("Gonna show the modal");
     debug("Options: "+options.includeSelectAll);
     debug("Label field is: "+labelField);
@@ -131,7 +132,12 @@ function showSelectionModal(fieldObject,options) {
                     fieldObject.expectArray = true;
                     debug("They selected all");
                     debug(fieldObject);
-                    message(fieldObject);
+                    if (!options.callback) {
+                        message(fieldObject);
+                    } else {
+                        options.callback(fieldObject);
+                    }
+                    
                 } else {
                     var singleFieldObject = {};
                     singleFieldObject.filename = getValAtIndex(fieldObject.filename,selectedClip);
@@ -141,7 +147,11 @@ function showSelectionModal(fieldObject,options) {
                     singleFieldObject.credits = getValAtIndex(fieldObject.credits,selectedClip);
                     singleFieldObject.url = getValAtIndex(fieldObject.url,selectedClip);
                     singleFieldObject.expectArray = false;
-                    message(singleFieldObject);
+                    if (!options.callback) {
+                        message(singleFieldObject);
+                    } else {
+                        options.callback(singleFieldObject);
+                    }
                 }
 
                 treatCloseAsCancel = false;

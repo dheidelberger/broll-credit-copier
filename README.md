@@ -120,6 +120,8 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.2.2 - Fixed some bugs in Reuters story selection, added support for clip-level Reuters restrictions.
+* 2.2.1 - Fix for change in to Reuters restrictions
 * 2.2.0 - Added clip selection functionality for Reuters Connect. Behind the scenes, streamlined the process for adding a new site. Sadly, this breaks testing for the time being.
 * 2.1.0 - Added testing using Node, Google Puppeteer, Mocha, and Chai. A great deal of code refactoring to support the testing framework. Added a build process via Gulp to address some of the refactoring. Many bug fixes including for Ruptly, Flickr, VideoBlocks, and Pond5.
 * 2.0.4 - Added support for Reuters Connect, rewrote Pond5 to accoomodate site redesign, added jquery and jquery.plainmodal to Git repository.
