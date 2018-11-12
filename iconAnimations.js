@@ -34,7 +34,11 @@ function animateIcon(mode, myPlayOnce) {
         24: "../images/icon24.png",
         32: "../images/icon32.png",
 
-      }});
+      }}, function(){
+        if (chrome.runtime.lastError) {
+          debug("The tab was closed");
+        }
+      });
 
       return;
   }
@@ -42,13 +46,23 @@ function animateIcon(mode, myPlayOnce) {
   if (mode === iconMode) {
     var folder = "../images/icon"+mode;
     var name = "icon"+mode+iconIndex+".png";
+
     chrome.pageAction.setIcon({tabId: theTab.id, 
         path: {
           16: folder+"/16/"+name,
           24: folder+"/24/"+name,
           32: folder+"/32/"+name,
 
-        }});
+        }},function(){
+          //debug("In the animation callback!");
+          if (chrome.runtime.lastError) {
+            debug("We errored too!!");
+            setupAnimation("Static");
+          }
+
+        });
+
+
       iconIndex = iconIndex+1;
 
       if ((iconIndex >= modeSize[mode]) && (playOnce)) {

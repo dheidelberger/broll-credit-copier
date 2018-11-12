@@ -120,6 +120,7 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.2.3 - Fixed showstopper bug that caused the tool to not work after Chrome or the extension was restarted.
 * 2.2.2 - Fixed some bugs in Reuters story selection, added support for clip-level Reuters restrictions.
 * 2.2.1 - Fix for change in to Reuters restrictions
 * 2.2.0 - Added clip selection functionality for Reuters Connect. Behind the scenes, streamlined the process for adding a new site. Sadly, this breaks testing for the time being.
