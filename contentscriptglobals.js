@@ -40,7 +40,7 @@ function message(fieldObject) {
 	//Instead, we set a globbal variable and append a div to the DOM. 
 	//The test script is watching for this div
 	if (!testingMode) {
-		chrome.runtime.sendMessage({fields: fieldObject});
+		chrome.runtime.sendMessage({fields: fieldObject,messageid:"message"});
 	} else {
 		returnMessage = fieldObject;
 		var signalNode = document.createElement('div');

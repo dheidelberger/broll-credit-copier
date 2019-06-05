@@ -5,7 +5,7 @@ sites.push({
     stateMatcher: {
         pageUrl: {
             hostContains: 'ec.europa.eu',
-            queryContains: '&ref=',
+            queryContains: 'ref=',
             pathContains: 'avservices'
         }
     },

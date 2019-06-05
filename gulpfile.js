@@ -32,7 +32,7 @@ gulp.task('scripts',function() {
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(gulpIgnore.exclude(['gulpfile.js']))
-    .pipe(uglify())
+    // .pipe(uglify())
     .pipe(gulp.dest('build/'));
 });
 

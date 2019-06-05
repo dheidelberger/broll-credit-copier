@@ -21,6 +21,10 @@ function sitesLoaded() {
     var stateMatchers = [];
     sites.forEach(function(site) {
       stateMatchers.push(new chrome.declarativeContent.PageStateMatcher(site.stateMatcher));
+      if (site.listener) {
+        debug("Adding listener for: "+site.name);
+        chrome.runtime.onMessage.addListener(site.listener);
+      }
     });
     console.log(stateMatchers);
     chrome.declarativeContent.onPageChanged.addRules([
@@ -51,6 +55,8 @@ function loadAllSites() {
       (function readNext() {
         directoryReader.readEntries(function(entries) {
           if (entries.length) {
+
+            var thisFile;
             
             //How many JS files are there
             //Can't make the page rules until everything is loaded
@@ -58,7 +64,7 @@ function loadAllSites() {
             siteFiles = [];
             sites = [];
             for (var i = 0; i < entries.length; ++i) {
-              var thisFile = entries[i];
+              thisFile = entries[i];
               if (getExtension(thisFile.name) === "js") {
                 expectedSiteLength++;
                 siteFiles.push(thisFile.name);
@@ -70,10 +76,12 @@ function loadAllSites() {
             //Loop through the files
             for (i = 0; i < entries.length; ++i) {
               
-              var thisFile = entries[i];
+              thisFile = entries[i];
               console.log("Found file: "+thisFile.name);
               
               //Only load the .js files;
+              /* jshint ignore:start */
+
               if (getExtension(thisFile.name) === "js") {
                 
                 
@@ -86,6 +94,9 @@ function loadAllSites() {
                   }
                 });
               }
+
+              /* jshint ignore:end */
+
               
               
             }
@@ -111,8 +122,7 @@ function playSound(filename) {
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender) {
-    
-    
+  if (request.messageid==="message" ) {
     
     //Arr is actually an object. Probably should refactor sometime...
     var arr = request.fields;
@@ -143,6 +153,10 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     input.select();
     document.execCommand('Copy');
     input.remove();
+
+  }
+    
+    
 });
   
 //Push all the values into a row
@@ -321,8 +335,9 @@ function handleClick(tab) {
                     
                     chrome.tabs.executeScript(null,{file: "sites/"+aFile}, function(){
                       
-                      //If we've injected the right amount of files
                       injectedFiles++;
+                      
+                      //If we've injected the right amount of files
                       if (injectedFiles === siteFiles.length) {
                         chrome.tabs.executeScript(null, { file: "contentscript.js" }, function () {
                           if (needUpdate) {
@@ -404,6 +419,13 @@ chrome.pageAction.onClicked.addListener(handleClick);
 chrome.contextMenus.onClicked.addListener(handleRightClick);
   
   
-  
+chrome.commands.onCommand.addListener(function(command) {
+  if (command==="execute-action") {
+    handleClick();
+    //_execute_page_action
+  }
+
+});
+
   
   
