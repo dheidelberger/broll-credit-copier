@@ -22,7 +22,8 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 * [Vimeo](http://www.vimeo.com)
 * [YouTube](http://www.youtube.com)
 
-\+ - Reuters is phasing out MediaExpress. In my workflow, I've moved on to Reuters Connect and I'm no longer maintaining MediaExpress compatibility 
+\+ - Reuters is phasing out MediaExpress. In my workflow, I've moved on to Reuters Connect and I'm no longer maintaining MediaExpress compatibility
+
 \* - I no longer have access to Reuters Newscom, so the tool may or may not work with it any more.
 
 ## NOTE
