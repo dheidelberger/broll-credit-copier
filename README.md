@@ -120,6 +120,7 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.2.4 - Updated Vimeo and YouTube to comply with [new Chrome CORS policy for extensions](https://www.chromium.org/Home/chromium-security/extension-content-script-fetches)
 * 2.2.3 - Fixed showstopper bug that caused the tool to not work after Chrome or the extension was restarted.
 * 2.2.2 - Fixed some bugs in Reuters story selection, added support for clip-level Reuters restrictions.
 * 2.2.1 - Fix for change in to Reuters restrictions
