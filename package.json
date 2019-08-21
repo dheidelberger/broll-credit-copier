@@ -21,7 +21,7 @@
     "gulp-uglify": "^3.0.1",
     "gulp-zip": "^4.2.0",
     "jshint": "^2.9.6",
-    "lodash": ">=4.17.11",
+    "lodash": ">=4.17.13",
     "mocha": "^5.2.0",
     "puppeteer": "^1.6.2"
   }

@@ -14,11 +14,8 @@ sites.push({
             var url = window.location.href;
             var title = $("h1").text();
         
-            var buttonText = $('div.downloadMessaging-title').text().trim()
+            var buttonText = $('div.downloadMessaging-title').text().trim();
             
-            //
-
-
             var fieldObject = {};
         
             debug("Button says: "+buttonText);
