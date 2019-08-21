@@ -45,7 +45,7 @@ gulp.task('zip',['scripts','copy'],function() {
     console.log(logPrefix+"Zipping: "+filename);
     return gulp.src('build/**')
     .pipe(zip(filename))
-    .pipe(gulp.dest('../'));
+    .pipe(gulp.dest('../Broll Credit Copier Distribution Builds/'));
 
 });
 

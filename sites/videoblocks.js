@@ -14,12 +14,16 @@ sites.push({
             var url = window.location.href;
             var title = $("h1").text();
         
-            var buttonText = $('button#stock-item-primary-action-button').text().trim();
+            var buttonText = $('div.downloadMessaging-title').text().trim()
+            
+            //
+
+
             var fieldObject = {};
         
             debug("Button says: "+buttonText);
         
-            if (buttonText === "Add to Cart") {
+            if (buttonText === "Purchase from  Marketplace") {
                 fieldObject.status = "Fail";
                 flashWarning("Stop",["This clip is not usable"],["This clip is from the VideoBlocks Marketplace, which means it would need to be purchased separately. Please constrain your search to 'Members-Only Content.'"],"halt");
             }

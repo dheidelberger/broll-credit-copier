@@ -31,6 +31,18 @@ Version 2.2.0 implements a new streamlined way of adding a new site. It also bre
 
 As of version 2.1.0, I've added a number of new features, most notably testing. This has required a lot of code reconfiguration and also means that there's now a building process for the extension via Gulp. I haven't had time to update this documentation yet, so for the moment, the installation, build, and contribution sections are not very accurate.
 
+## Privacy Policy
+#### (A version of this text will soon be added into the extension to comply with [Google's new policy](https://developer.chrome.com/webstore/user_data))
+
+This extension collects no data, personal or otherwise, however, it does handle data which Google deems to be sensitive. As such, [Google requires](https://developer.chrome.com/webstore/user_data) this privacy statement.
+
+This extension is only activated when you click on it (or use its keyboard shortcut). Chrome's [Declarative Content API](https://developer.chrome.com/extensions/declarativeContent), not the extension itself, determines when the extension is clickable. As such, the extension receives no information about a page you are visiting until you click it.
+
+No data is collected by this extension or sent to any remote server with the following exceptions:
+An encrypted HTTPS API call is made to the [Vimeo](https://developer.vimeo.com/) or [YouTube API](https://developers.google.com/youtube/v3/) when this extension is used on one of those sites in order to provide metadata for videos on those sites that can't be found on the page itself. No information is transmitted in these API requests apart from the URL of the video on the current page.
+
+This extension will also periodically ask for your initials. This information is not stored by the extension itself, but it is synced across your personal Chrome installs and stored on Google’s servers using [Google Chrome's Storage API](https://developers.chrome.com/extensions/storage).
+
 ## Installation
 
 ### "Prebuilt" version from the Chrome store
@@ -121,6 +133,7 @@ if (url.includes("dvidshub.net")) {
 
 ## History
 
+* 2.2.5 - Updated videoblocks for a site redesign
 * 2.2.4 - Updated Vimeo and YouTube to comply with [new Chrome CORS policy for extensions](https://www.chromium.org/Home/chromium-security/extension-content-script-fetches)
 * 2.2.3 - Fixed showstopper bug that caused the tool to not work after Chrome or the extension was restarted.
 * 2.2.2 - Fixed some bugs in Reuters story selection, added support for clip-level Reuters restrictions.
