@@ -1,6 +1,6 @@
 {
   "name": "broll-credit-copier",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "jshint": "^2.9.6",
     "lodash": ">=4.17.13",
     "mocha": "^5.2.0",
+    "natives": "^1.1.6",
     "puppeteer": "^1.6.2"
   }
 }

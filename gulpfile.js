@@ -21,13 +21,13 @@ gulp.task('clean', function() {
 });
 
 gulp.task('copy',['clean'], function() {
-	return gulp.src(['*images/**/*','*libs/**/*','*sounds/**/*','basic.css','manifest.json','background.html'])
+	return gulp.src(['*images/**/*','*libs/**/*','*sounds/**/*','basic.css', 'manifest.json','background.html','*licensemodal/**/*','!*licensemodal/**/*.js'])
 		.pipe(gulp.dest('build/'));
 	
 });
 
 gulp.task('scripts',function() {
-    return gulp.src(['*.js','*sites/**/*'])
+    return gulp.src(['*.js','*sites/**/*','*licensemodal/**/*.js'])
     .pipe(preprocess({ context: preprocOpts }))
     .pipe(jshint())
     .pipe(jshint.reporter('default'))

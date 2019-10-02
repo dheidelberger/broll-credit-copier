@@ -17,6 +17,7 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 * [Reuters MediaExpress](http://mediaexpress.reuters.com/)+
 * [Reuters Newscom](http://www.newscom.com)*
 * [Ruptly](http://www.ruptly.tv)
+* [UNICEF WeShare](https://weshare.unicef.org)
 * [United Nations Unifeed](http://www.unmultimedia.org/tv/unifeed/)
 * [VideoBlocks](http://www.videoblocks.com)
 * [Vimeo](http://www.vimeo.com)
@@ -27,21 +28,10 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 \* - I no longer have access to Reuters Newscom, so the tool may or may not work with it any more.
 
 ## NOTE
-Version 2.2.0 implements a new streamlined way of adding a new site. It also breaks the testing implemented in 2.1.0. I'll have to address this in a future update as well as update the documentation which is now severely outdated. Estimated timeframe for these fixes: January 2019.
-
-As of version 2.1.0, I've added a number of new features, most notably testing. This has required a lot of code reconfiguration and also means that there's now a building process for the extension via Gulp. I haven't had time to update this documentation yet, so for the moment, the installation, build, and contribution sections are not very accurate.
+Version 2.2.0 implements a new streamlined way of adding a new site that breaks the testing implemented in 2.1.0. Tests will have to be updated, but the documentation is now, at least, current!
 
 ## Privacy Policy
-#### (A version of this text will soon be added into the extension to comply with [Google's new policy](https://developer.chrome.com/webstore/user_data))
-
-This extension collects no data, personal or otherwise, however, it does handle data which Google deems to be sensitive. As such, [Google requires](https://developer.chrome.com/webstore/user_data) this privacy statement.
-
-This extension is only activated when you click on it (or use its keyboard shortcut). Chrome's [Declarative Content API](https://developer.chrome.com/extensions/declarativeContent), not the extension itself, determines when the extension is clickable. As such, the extension receives no information about a page you are visiting until you click it.
-
-No data is collected by this extension or sent to any remote server with the following exceptions:
-An encrypted HTTPS API call is made to the [Vimeo](https://developer.vimeo.com/) or [YouTube API](https://developers.google.com/youtube/v3/) when this extension is used on one of those sites in order to provide metadata for videos on those sites that can't be found on the page itself. No information is transmitted in these API requests apart from the URL of the video on the current page.
-
-This extension will also periodically ask for your initials. This information is not stored by the extension itself, but it is synced across your personal Chrome installs and stored on Google’s servers using [Google Chrome's Storage API](https://developers.chrome.com/extensions/storage).
+#### See [PRIVACY.md](PRIVACY.md)
 
 ## Installation
 
@@ -52,15 +42,29 @@ If you're just interested in using the tool, you can install it with one click f
 ### Adapting it to your own workflow
 You are also free to download and adapt the code as you like. Please be sure to read the [License](#license) section for important information about making your own version.
 
-**Note that as of 2.1.0, a number of changes have made this section of the documentation somewhat obsolete. I'll try to update it when I can. A build step using [Gulp](https://gulpjs.com/) is now required.**
-
 The code should work out-of-the-box except that you'll need to use your own API keys for YouTube and Vimeo. You can find directions for how to do that in [apikeys.sample.js](apikeys.sample.js). Check out the [Chrome documentation](https://developer.chrome.com/extensions/getstarted#unpacked) for information about how to install an extension you are developing.
 
-As of version 2.0.4, I'm including jQuery and the jQuery plainmodal plugin in the git repo. I realize that this is a somewhat frowned upon decision, but my reason for doing so is to make it so it really does work out-of-the-box and a novice who wants to tinker with the code doesn't have to deal with some sort of package installer. Feel free to delete the contents of the 'libs' folder and download your own versions of [jQuery](https://jquery.com/) and [jQuery plainmodal](https://github.com/anseki/jquery-plainmodal). You'll have to modify the executeScripts code in [background.js](background.js#L340-L341) if the library file names are different.
+While you can just drag this entire folder into your Chrome Extensions page and this extension will work, there are a lot of extra files in the folder that are necessary for testing and debugging but aren't necessary for your final build. As such, I've added a build step using [Gulp](https://gulpjs.com/).
+
+To build the extension, you'll need to have [Node.JS and NPM](https://nodejs.org/en/) installed. Once those are installed, navigate to the root folder of the project and in your terminal, type:
+
+```sh
+npm install
+```
+
+This will install the various dev dependencies. To build the extension, in your terminal, type:
+
+```sh
+npm run build
+```
+
+This will run some linting and copy all the required files into a folder called "build." It will then zip the entire extension and move the zip file into a sibling folder to the project root called "Broll Credit Copier Distribution Builds."
+
+As of version 2.0.4, I'm including various libraries in the libs folder in the git repo. I realize that this is a somewhat frowned upon decision, but my reason for doing so is to make it so it really does work out-of-the-box and a novice who wants to tinker with the code doesn't have to deal with some sort of package installer. Feel free to delete the contents of the 'libs' folder and download your own versions of the libraries, however you'll have to modify code in a few places if the library flenames are different.
 
 ## Usage
 
-Once it's installed, if you're on a page where there is compatible footage, you can click on the icon (or press alt/option-c) and it will copy the metadata to your clipboard.
+Once the extension is installed in Chrome, if you're on a page where there is compatible footage, you can click on the icon (or press alt/option-c) and it will copy the metadata to your clipboard.
 
 The metadata is copied into a line of tab-separated text with the following columns:
 
@@ -76,63 +80,90 @@ The metadata is copied into a line of tab-separated text with the following colu
 
 ## Contributing
 
-**Note that as of 2.1.0, a number of changes have made this section of the documentation somewhat obsolete. I'll try to update it when I can. 2.2.0 breaks this even further. Sites are now added by adding a file to the sites folder. Documentation in severe need of updating.**
-
 If there's another website that you want to add to the tool, please feel free to code it yourself and submit a pull request, or you can submit a feature request on the issue tracker page and I'll try to take a look if and when I have the time.
 
-To add a new site, there are three places you need to add code:
+To add a new site, you should do the following:
 
-1. In [background.js](background.js), add a new rule to the declarativeContent section. This will make Chrome recognize that the tool is compatible with that site. Check Google's [documentation on declarativeContent](https://developer.chrome.com/extensions/declarativeContent) for information about how to write your own rules. The rule should be specific to a page where there's metadata to copy. So, for example, the css part of the Vimeo rule below makes sure that the user is on a page with a video on it and not on a search result page or some other page on the Vimeo site. There's a fair amount of trial and error in this process. Most of the bugs that I fix in the code at this point are when I discover some new way a site displays videos that means the rule either matches when it shouldn't or doesn't match when it should.
+1. In the [sites](sites) folder, create a new file called `[sitename]`.js.
 
-```javascript
- new chrome.declarativeContent.PageStateMatcher({
+2. In that new file, use the following skeleton:
+
+    ```js
+    sites.push({
+
+        name: "[SITENAME]",
+
+        stateMatcher: { 
+            //Create a pagestatematcher along the lines of Google's DeclarativeContent spec here:
+            //https://developer.chrome.com/extensions/declarativeContent
+            //The extension will only be clickable if the pagestatematcher conditions are met
+        },
+
+        listener: function(message, sender, sendResponse) {
+            // This is an optional function and is only necessary if you need to query an API
+            // Chrome has disabled cross-origin http requests in content scripts
+            // https://www.chromium.org/Home/chromium-security/extension-content-script-fetches
+            // If you need to make such a request, you can include this function and it will be injected into your background script
+            // You'll then need to message this listener from your content script
+            // The message should have a key called messageid that is a unique string to this site
+            // See youtube.js for an example of how this is implemented
+        },
+
+        contentScript: function() {
+            //Name sitename after your site (ie: youtube, vimeo, etc.)
+            var sitename = function() {
+                var fieldObject = {}; //This is the object that will get passed to the clipboard eventually
+                
+                //Put code here to get the necessary metadata from the page. 
+                //The following properties should be set for every page    
+            
+                fieldObject.url = window.location.href; //Page url
+                fieldObject.title = ''; //Video title
+                fieldObject.credits = ''; //Appropriate credit, multiple credits can be joined with a pipe (|)            
+                fieldObject.filename = ''; //Always blank            
+                fieldObject.source = ''; //Site source (ie: youtube, vimeo, dvids, etc.)
+                fieldObject.license = ''; //License type (Public Domain, Creative Commons Attribution, Handout, Copyrighted etc.)
+
+                //Optional, if left out, "Success" is assumed
+                //Can also be "Fail" or "Caution"
+                //This value determines what SFX and animation is played
+                fieldObject.status = "Success";
+
+                message(fieldObject); //Pass your final fieldObject to this function, the extension will take care of the rest
+            };
+
+            //Code for every site is injected each time the extension is invoked
+            //This check makes sure that only the correct site code is executed
+            if (url.includes("[SITEURL]")) {
+                sitename();
+            }    
+        }
+
+    });
+    ```
+
+
+3. Tests are currently broken, but at some point soon, there will be an extra step necessary to write tests for a new site that you've added.
+
+
+##### PageStateMatchers
+These can be confusing, here's a bit of guidance. The rule should be specific to a page where there's metadata to copy. So, for example, the css part of the Vimeo rule below makes sure that the user is on a page with a video on it and not on a search result page or some other page on the Vimeo site. There's a fair amount of trial and error in this process. Most of the bugs that I fix in the code at this point are when I discover some new way a site displays videos that means the rule either matches when it shouldn't or doesn't match when it should.
+
+```js
+stateMatcher: {
     pageUrl: {
-        hostContains:   'vimeo.com',
+        hostContains: 'vimeo.com',
     },
     css: ['div.player_area']
-
-})
-```
-
-2. In [contentscript.js](contentscript.js), create a new function for the website you want to add. The convention I've been using is to name the function after the website. The function should do all the scraping on the page and create an object with the necessary fields. At the end of the function, call the `message()` function and pass it the object. Look at the Vimeo function in the code for an example of how to do this asynchronously, where we need to wait for the result of an API call before we can call the message function. jQuery is injected into pages where Credit Copier is used, so you can use jQuery to help you scrape. Here's an example of a typical function. You'll have to figure out your own jQuery queries to scrape the appropriate data from the site:
-
-```javascript
-function freeSound() {
-    var url = window.location.href;
-    var title = $("head meta[property='og:audio:title']").attr("content");
-    var credit = $("head meta[property='og:audio:artist']").attr("content");
-    var license = $("div#sound_license a")[0].href.replace(/http:\/\/creativecommons.org\//g,"").replace(/licenses\//g, "").replace(/\/.*/g,"");
-
-    var fieldObject = {};
-    fieldObject.filename = "";
-    fieldObject.title = title;
-    fieldObject.source = "FreeSound";
-    fieldObject.license = license;
-    fieldObject.credits = credit;
-    fieldObject.url = url;
-
-    //Optional, if left out, "Success" is assumed
-    //Can also be "Fail" or "Caution"
-    //This value determines what SFX and animation is played
-    fieldObject.status = "Success" 
-    
-    message(fieldObject);
 }
 ```
 
-If you need to present the user with an error message or warning, check out [alerts.js](alerts.js), which is built on top of the [jQuery plainModal plugin](https://github.com/anseki/jquery-plainmodal). There should be comments in that file which will help you create your own warnings and errors. It also includes a way of copying multiple clips at once. See the mediaExpress function for how to handle multiple clips.
-
-3. Finally, in [contentscript.js](contentscript.js), you'll need to add an if statement to call your function.
-        
-```javascript
-if (url.includes("dvidshub.net")) {
-    dvids();
-}
-
-```
+##### Error Messages
+If you need to present the user with an error message or warning, check out [alerts.js](alerts.js), which is built on top of the [jQuery plainModal plugin](https://github.com/anseki/jquery-plainmodal). There should be comments in that file which will help you create your own warnings and errors. It also includes a way of copying multiple clips at once. See the [Media Express](sites/mediaexpress.js) function for how to handle multiple clips.
 
 ## History
 
+* 2.2.6 - Implemented privacy policy agreement, added UNICEF WeShare, extensive documentation updates
 * 2.2.5 - Updated videoblocks for a site redesign
 * 2.2.4 - Updated Vimeo and YouTube to comply with [new Chrome CORS policy for extensions](https://www.chromium.org/Home/chromium-security/extension-content-script-fetches)
 * 2.2.3 - Fixed showstopper bug that caused the tool to not work after Chrome or the extension was restarted.

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Privacy Policy</title>
+    <link rel="stylesheet" type="text/css" href="../libs/bootstrap.min.css"/>
+</head>
+<body>
+    
+    <div id="broll-cc-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Privacy Policy</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Intro</h3>
+                    <p>Please read this privacy disclosure carefully and agree to it prior to using this extension. You may also read a blanket privacy policy for all my extensions <a href="https://github.com/dheidelberger/extension-privacy-policy" target="_blank">here</a>.</p>
+                    <p>This extension collects no data, personal or otherwise, however, it does handle data which Google deems to be sensitive. As such, <a href="https://developer.chrome.com/webstore/user_data" target="_blank">Google requires</a> this privacy statement.</p>
+                    <h3>Activation</h3>
+                    <p>This extension is only activated when you click on it (or use its keyboard shortcut). <a href="https://developer.chrome.com/extensions/declarativeContent" target="_blank">Chrome's Declarative Content API</a>, not the extension itself,  determines when the extension is clickable. As such, this extension receives no information about a page you are visiting until you click its icon.</p>
+                    <h3>Data Collection</h3>
+                    <p>No data is collected by this extension or sent to any remote server with the following exception(s):
+                        <ul>
+                            <li>An encrypted HTTPS API call is made to the <a href="https://developer.vimeo.com" target="_blank">Vimeo</a> or <a href="https://developers.google.com/youtube/v3" target="_blank">YouTube API</a> when this extension is used on one of those sites in order to provide metadata for videos on those sites that can't be found on the page itself. The URL of the video on the current page is transmitted. There is some personal information the third party receives in the <a href="https://developer.mozilla.org/en-US/docs/Glossary/Request_header" target="_blank">request header</a>, most notably your <a href="https://computer.howstuffworks.com/internet/basics/what-is-an-ip-address.htm" target="_blank">IP address</a> and <a href="https://developer.chrome.com/multidevice/user-agent" target="_blank">user agent string</a>. Some companies will use information like that to develop a “<a href="https://pixelprivacy.com/resources/browser-fingerprinting/" target="_blank">browser fingerprint</a>" that can probably track and personally identify you. Unfortunately, this is not something that I or my extensions have control over. If this is a concern for you, consider <a href="https://www.howtogeek.com/133680/htg-explains-what-is-a-vpn/" target="_blank">using a VPN</a> to mask your IP address.</li>
+                        </ul>
+                    </p>
+                    <h3>Data Storage</h3>
+                    <p>This extension will also periodically ask for your initials. This information is not stored by the extension itself, but it is synced across your personal Chrome installs and stored on Google’s servers using <a href="https://developers.chrome.com/extensions/storage" target="_blank">Google Chrome's Storage API</a>.</p>
+                    <h3>Changes to this Policy</h3>
+                    <p>You are required to agree to this privacy policy every time a new version of the Credit Copier is released. If there are changes made to this privacy policy, they will be wrapped into a new version so you will be presented with changes as they are made.</p>
+                    <h3>Source Code</h3>
+                    <p>The B-Roll Credit Copier is open-source and the complete source code may be <a href="https://github.com/dheidelberger/broll-credit-copier/" target="_blank">viewed on GitHub</a>.</p>
+                </div>
+                <div class="modal-footer">
+                    <p>Please click "Accept" to agree to this privacy policy and use this extension. If you click "Decline", unfortunately, this extension will not work.</p>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Decline</button>
+                    <button type="button" class="btn btn-primary" id="accept-btn">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../libs/jquery-3.4.1.min.js"></script>
+    <script src="../libs/popper.min.js"></script>
+    <script src="../libs/bootstrap.min.js"></script>
+    <script src="../globals.js"></script>
+    <script src="launchmodal.js"></script>
+</body>
+</html>

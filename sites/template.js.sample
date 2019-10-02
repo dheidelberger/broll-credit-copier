@@ -1,20 +1,51 @@
 sites.push({
 
-    name: "Sample",
+    name: "[SITENAME]",
 
-    stateMatcher: {
-        //Put your stateMatcher object here
-        //See https://developer.chrome.com/extensions/declarativeContent#type-PageStateMatcher    
+    stateMatcher: { 
+        //Create a pagestatematcher along the lines of Google's DeclarativeContent spec here:
+        //https://developer.chrome.com/extensions/declarativeContent
+        //The extension will only be clickable if the pagestatematcher conditions are met
+    },
+
+    listener: function(message, sender, sendResponse) {
+        // This is an optional function and is only necessary if you need to query an API
+        // Chrome has disabled cross-origin http requests in content scripts
+        // https://www.chromium.org/Home/chromium-security/extension-content-script-fetches
+        // If you need to make such a request, you can include this function and it will be injected into your background script
+        // You'll then need to message this listener from your content script
+        // The message should have a key called messageid that is a unique string to this site
+        // See youtube.js for an example of how this is implemented
     },
 
     contentScript: function() {
-        //Put your helper functions here
-        //For example:
-        //var youtube = function() {}...
+        //Name sitename after your site (ie: youtube, vimeo, etc.)
+        var sitename = function() {
+            var fieldObject = {}; //This is the object that will get passed to the clipboard eventually
+            
+            //Put code here to get the necessary metadata from the page. 
+            //The following properties should be set for every page    
+        
+            fieldObject.url = window.location.href; //Page url
+            fieldObject.title = ''; //Video title
+            fieldObject.credits = ''; //Appropriate credit, multiple credits can be joined with a pipe (|)            
+            fieldObject.filename = ''; //Always blank            
+            fieldObject.source = ''; //Site source (ie: youtube, vimeo, dvids, etc.)
+            fieldObject.license = ''; //License type (Public Domain, Creative Commons Attribution, Handout, Copyrighted etc.)
 
-        //Must include a test here for whether or not to call the helper function
-        //if (url.includes("youtube.com")) {
-        //  youtube();
-        //}
+            //Optional, if left out, "Success" is assumed
+            //Can also be "Fail" or "Caution"
+            //This value determines what SFX and animation is played
+            fieldObject.status = "Success" ;
+
+            message(fieldObject); //Pass your final fieldObject to this function, the extension will take care of the rest
+        };
+
+        //Code for every site is injected each time the extension is invoked
+        //This check makes sure that only the correct site code is executed
+        if (url.includes("[SITEURL]")) {
+            sitename();
+        }    
     }
+
 });

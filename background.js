@@ -226,6 +226,10 @@ function handleRightClick(info,tab) {
     chrome.storage.sync.remove(["initials"]);
     
   }
+
+  if (id === "reset-privacy") {
+    chrome.storage.sync.remove(['privacyVersion']);
+  }
   
   if (id=="reset-sound") {
     chrome.storage.sync.remove(["playSound"]);
@@ -262,90 +266,158 @@ function handleRightClick(info,tab) {
   
 }
   
+//Let's show the privacy agreement
+//currentVersion is our current extension version
+function privacyAgreement(currentVersion) {
+
+  //We're going to get a message from the iframe when the user hides the privacy policy
+  //request.agreed will be true if the user clicked the accept button, otherwise false
+  //We need an iframe to avoid style conflicts
+  //Code adapted from: https://anderspitman.net/3/chrome-extension-content-script-stylesheet-isolation/
   
+  //Content script opens an iframe, 
+  //   iframe messages background.js when modal is closed, 
+  //   background.js messages content script to delete the iframe and clean up
+  //Yep, it's annoying!
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    
+    //Only respond to privacypolicy messages
+    if (request.messageid==="privacypolicy" ) {
+
+      debug("We closed the privacy policy");
+      debug(request);
+      
+      //Set the agreed version in storage to the current version
+      if (request.agreed) {
+        chrome.storage.sync.set({privacyVersion:currentVersion});
+      }
+
+      //Send message back to content script
+      chrome.tabs.sendMessage(sender.tab.id, {
+        messageid: "closeprivacypolicy"
+      });
+
+
+
+    }
+  });
+  chrome.tabs.insertCSS(null, {file: "licensemodal/modal.css"}, function () {
+    chrome.tabs.executeScript(null, { file: "globals.js"}, function() {
+      chrome.tabs.executeScript(null, { file: "licensemodal/modal.js"}, function() {
+      });
+    });
+  });
+}
   
   
   
 function handleClick(tab) {
   
   theTab = tab;
-  
-  //If it's been two hours, get new initials
-  var secondDiff = 7200000;
-  var secondDiffNiceName = "two hours";
-  
-  var myDate = new Date();
-  var mySecs = myDate.getTime() ;
-  
-  
-  var lastUp = 0;
-  inits = "";
-  
-  setupAnimation("Thinking");
-  
-  //Get when the last initials were
-  testItems = chrome.storage.sync.get(['initials','lastUpdate'], function(items) {
+
+
+  // Has the user agreed to the privacy agreement for this version?
+  var privacyAgreedItems = chrome.storage.sync.get(['privacyVersion'], function (privacyAgreedObject) {
     
-    var initials = items.initials;
-    var lastUpdate = items.lastUpdate;
-    var needUpdate = false;
+    var currentVersion = chrome.app.getDetails().version;
     
-    debug("Initials: "+initials);
-    debug("Update  : "+lastUpdate);
-    
-    if (typeof lastUpdate != 'undefined') {
-      lastUp = lastUpdate;
+    debug("Current Version: "+currentVersion);
+    debug("Privacy params:");
+    debug(privacyAgreedObject);
+
+    var privacyVersion = privacyAgreedObject.privacyVersion;
+
+    //The saved version is different than the current version (or it's null or whatever)
+    if (privacyVersion !== currentVersion) {
+      privacyAgreement(currentVersion);
+      return;
     }
+
     
-    if (typeof initials != 'undefined' && initials != "") {
-      inits = initials;
-    } else {
-      lastUp = mySecs;
-      needUpdate = true;
-      inits = getInitials("Please enter your initials");
-    }
+    //If it's been two hours, get new initials
+    var secondDiff = 7200000;
+    var secondDiffNiceName = "two hours";
     
-    var timePassed = mySecs - lastUp;
-    debug("Time passed: "+timePassed/1000);
-    
-    if (timePassed > secondDiff) {
-      debug("Too long: "+(timePassed));
-      debug("My Date : "+mySecs);
-      debug("Last Up : "+lastUp);
-      lastUp = mySecs;
-      needUpdate = true;
-      inits = getInitials("It's been more than "+secondDiffNiceName+" since you last entered your initials. Please confirm them now.",inits);
-    }
+    var myDate = new Date();
+    var mySecs = myDate.getTime() ;
     
     
+    var lastUp = 0;
+    inits = "";
     
+    setupAnimation("Thinking");
     
-    chrome.tabs.insertCSS(null, {file: "basic.css"}, function () {
-      chrome.tabs.executeScript(null, { file: "libs/jquery-1.11.3.min.js" }, function() {
-        chrome.tabs.executeScript(null, { file: "libs/jquery.plainmodal.min.js" }, function() {
-          chrome.tabs.executeScript(null, { file: "apikeys.js" }, function() {
-            chrome.tabs.executeScript(null, { file: "contentscriptglobals.js" }, function() {
-              chrome.tabs.executeScript(null, {file:"globals.js"}, function() {
-                chrome.tabs.executeScript(null, { file: "alerts.js" }, function() {
-                  
-                  //We inject the site files here.
-                  injectedFiles = 0;
-                  siteFiles.forEach(function(aFile) {
-                    console.log("Injecting content: "+aFile);
+    //Get when the last initials were
+    testItems = chrome.storage.sync.get(['initials','lastUpdate'], function(items) {
+
+
+      
+      var initials = items.initials;
+      var lastUpdate = items.lastUpdate;
+      var needUpdate = false;
+      
+      debug("Initials: "+initials);
+      debug("Update  : "+lastUpdate);
+      
+      if (typeof lastUpdate != 'undefined') {
+        lastUp = lastUpdate;
+      }
+  
+      if (navigator.userAgent==="PuppeteerAgent") {
+        initials = "test";
+        lastUp = mySecs;
+      }
+      
+      if (typeof initials != 'undefined' && initials != "") {
+        inits = initials;
+      } else {
+        lastUp = mySecs;
+        needUpdate = true;
+        inits = getInitials("Please enter your initials");
+      }
+      
+      var timePassed = mySecs - lastUp;
+      debug("Time passed: "+timePassed/1000);
+      
+      if (timePassed > secondDiff) {
+        debug("Too long: "+(timePassed));
+        debug("My Date : "+mySecs);
+        debug("Last Up : "+lastUp);
+        lastUp = mySecs;
+        needUpdate = true;
+        inits = getInitials("It's been more than "+secondDiffNiceName+" since you last entered your initials. Please confirm them now.",inits);
+      }
+      
+      
+      
+      
+      chrome.tabs.insertCSS(null, {file: "basic.css"}, function () {
+        chrome.tabs.executeScript(null, { file: "libs/jquery-1.11.3.min.js" }, function() {
+          chrome.tabs.executeScript(null, { file: "libs/jquery.plainmodal.min.js" }, function() {
+            chrome.tabs.executeScript(null, { file: "apikeys.js" }, function() {
+              chrome.tabs.executeScript(null, { file: "contentscriptglobals.js" }, function() {
+                chrome.tabs.executeScript(null, {file:"globals.js"}, function() {
+                  chrome.tabs.executeScript(null, { file: "alerts.js" }, function() {
                     
-                    chrome.tabs.executeScript(null,{file: "sites/"+aFile}, function(){
+                    //We inject the site files here.
+                    injectedFiles = 0;
+                    siteFiles.forEach(function(aFile) {
+                      console.log("Injecting content: "+aFile);
                       
-                      injectedFiles++;
-                      
-                      //If we've injected the right amount of files
-                      if (injectedFiles === siteFiles.length) {
-                        chrome.tabs.executeScript(null, { file: "contentscript.js" }, function () {
-                          if (needUpdate) {
-                            chrome.storage.sync.set({initials:inits,lastUpdate:mySecs});
-                          }
-                        });
-                      }
-                      
+                      chrome.tabs.executeScript(null,{file: "sites/"+aFile}, function(){
+                        
+                        injectedFiles++;
+                        
+                        //If we've injected the right amount of files
+                        if (injectedFiles === siteFiles.length) {
+                          chrome.tabs.executeScript(null, { file: "contentscript.js" }, function () {
+                            if (needUpdate) {
+                              chrome.storage.sync.set({initials:inits,lastUpdate:mySecs});
+                            }
+                          });
+                        }
+                        
+                      });
                     });
                   });
                 });
@@ -356,6 +428,9 @@ function handleClick(tab) {
       });
     });
   });
+
+
+  
 }
   
 chrome.contextMenus.removeAll(function(){
@@ -380,6 +455,15 @@ chrome.contextMenus.removeAll(function(){
     "contexts":["page_action"],
     "id":"reset-initials"
   });
+
+  chrome.contextMenus.create({
+    "type":"normal",
+    "title":"Reset Privacy",
+    "contexts":["page_action"],
+    "id":"reset-privacy"
+  });
+
+  
 
   if (debugMode) {
     chrome.contextMenus.create({
