@@ -163,6 +163,7 @@ If you need to present the user with an error message or warning, check out [ale
 
 ## History
 
+* 2.2.7 - Update to YT API
 * 2.2.6 - Implemented privacy policy agreement, added UNICEF WeShare, extensive documentation updates
 * 2.2.5 - Updated videoblocks for a site redesign
 * 2.2.4 - Updated Vimeo and YouTube to comply with [new Chrome CORS policy for extensions](https://www.chromium.org/Home/chromium-security/extension-content-script-fetches)

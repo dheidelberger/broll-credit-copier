@@ -1,7 +1,7 @@
 {
   "name": "B-Roll Credit Copier",
   "short_name": "BRollCreditCopier",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "Copy data from many b-roll sites to the clipboard for pasting directly into a b-roll cataloging spreadsheet.",
   "background": {
     "page": "background.html",
