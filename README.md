@@ -97,6 +97,8 @@ To add a new site, you should do the following:
             //Create a pagestatematcher along the lines of Google's DeclarativeContent spec here:
             //https://developer.chrome.com/extensions/declarativeContent
             //The extension will only be clickable if the pagestatematcher conditions are met
+            //This can also be an array of objects if there are multiple types of pages you want to support
+            //   It is your responsibility in your contentscript to run the appropriate code for the state
         },
 
         listener: function(message, sender, sendResponse) {

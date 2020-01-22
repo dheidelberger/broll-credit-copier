@@ -20,7 +20,19 @@ function sitesLoaded() {
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     var stateMatchers = [];
     sites.forEach(function(site) {
-      stateMatchers.push(new chrome.declarativeContent.PageStateMatcher(site.stateMatcher));
+
+      if (Array.isArray(site.stateMatcher)) {
+        for (var i = 0; i< site.stateMatcher.length; i++) {
+          let thisMatcher = new chrome.declarativeContent.PageStateMatcher(site.stateMatcher[i]);
+          stateMatchers.push(thisMatcher);
+
+
+        }
+
+      } else {
+        stateMatchers.push(new chrome.declarativeContent.PageStateMatcher(site.stateMatcher));
+
+      }
       if (site.listener) {
         debug("Adding listener for: "+site.name);
         chrome.runtime.onMessage.addListener(site.listener);

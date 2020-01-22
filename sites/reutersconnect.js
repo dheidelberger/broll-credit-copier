@@ -11,7 +11,7 @@ sites.push({
     
     contentScript: function() {
         var reutersConnectHeader = "This clip requires a different Reuters subscription";
-        var reutersConnectMessage = "This clip requires a Reuters \"Points\" subscription, which we don't have access to. Unfortunately, we will not be able to use this clip.";
+        var reutersConnectMessage = "This clip requires a Reuters \"Points\" subscription, which you don't have access to. Unfortunately, you will not be able to use this clip.";
         
         //Reuters Connect. Replacement for MediaExpress, and very similar page structure.
         var reutersConnect = function() {
