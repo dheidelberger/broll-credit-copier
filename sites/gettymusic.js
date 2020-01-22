@@ -50,8 +50,8 @@ sites.push({
 
         var gettyMusicTrackList = function() {
 
-            let expandedContainer = document.querySelector('div.track-row-container.expanded');
-            let detailURL = 'https://www.gettyimages.com'+ expandedContainer.querySelector('.track-row').getAttribute('data-adp-url')
+            var expandedContainer = document.querySelector('div.track-row-container.expanded');
+            var detailURL = 'https://www.gettyimages.com'+ expandedContainer.querySelector('.track-row').getAttribute('data-adp-url');
 
 
             fetch(detailURL)
@@ -61,9 +61,9 @@ sites.push({
                 const htmlDocument = parser.parseFromString(text, "text/html");
                 gettyMusicTrackPage(htmlDocument,detailURL);
                 
-            })
+            });
 
-        }
+        };
 
 
 

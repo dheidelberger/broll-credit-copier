@@ -13,8 +13,8 @@ sites.push({
     contentScript: function() {
         var europeanCommission = function() {
             var url = window.location.href;
-            var title = document.querySelectorAll('div.avs-content-wrapper>h1')[0].innerText.trim()
-            var credit = "European Commission"
+            var title = document.querySelectorAll('div.avs-content-wrapper>h1')[0].innerText.trim();
+            var credit = "European Commission";
             var license = "EC Handout";
             
             var fieldObject = {};

@@ -11,12 +11,15 @@ Our workflow is geared heavily towards HD "freeroll" sources (plus a few licensi
 * [The European Commission Audiovisual Services](https://ec.europa.eu/avservices)
 * [Flickr](http://www.flickr.com)
 * [Freesound](http://www.freesound.org)
+* [Getty Images](https://www.gettyimages.com/)
+* [Getty Music](https://www.gettyimages.com/music)
 * [The NewsMarket](http://www.thenewsmarket.com)
 * [Pond5 Public Domain](https://www.pond5.com/free)
 * [Reuters Connect](https://www.reutersconnect.com/)
 * [Reuters MediaExpress](http://mediaexpress.reuters.com/)+
 * [Reuters Newscom](http://www.newscom.com)*
 * [Ruptly](http://www.ruptly.tv)
+* [Shutterstock](https://www.shutterstock.com)
 * [UNICEF WeShare](https://weshare.unicef.org)
 * [United Nations Unifeed](http://www.unmultimedia.org/tv/unifeed/)
 * [VideoBlocks](http://www.videoblocks.com)
@@ -99,6 +102,7 @@ To add a new site, you should do the following:
             //The extension will only be clickable if the pagestatematcher conditions are met
             //This can also be an array of objects if there are multiple types of pages you want to support
             //   It is your responsibility in your contentscript to run the appropriate code for the state
+            //   Check shutterstock.js for examples of dealing with multiple pagestatematchers
         },
 
         listener: function(message, sender, sendResponse) {
@@ -165,6 +169,7 @@ If you need to present the user with an error message or warning, check out [ale
 
 ## History
 
+* 2.2.8 - Fixed issues with UNICEF WeShare, added Getty Images, Getty Music, and Shutterstock
 * 2.2.7 - Update to YT API
 * 2.2.6 - Implemented privacy policy agreement, added UNICEF WeShare, extensive documentation updates
 * 2.2.5 - Updated videoblocks for a site redesign

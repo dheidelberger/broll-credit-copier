@@ -17,7 +17,7 @@ sites.push({
                 return;
             }
 
-            let namePanel = panel[0].querySelector('div[id*="ListPnl"]')
+            let namePanel = panel[0].querySelector('div[id*="ListPnl"]');
 
             if (namePanel) {
                 nameArray.push(namePanel.textContent.trim());
@@ -28,7 +28,7 @@ sites.push({
         var unicefweshare = function() {
             var fieldObject = {};
 
-            var url = document.querySelectorAll('a[original-title="Permalink"]')[0].getAttribute('href')
+            var url = document.querySelectorAll('a[original-title="Permalink"]')[0].getAttribute('href');
 
             debug(url);
 
@@ -48,7 +48,7 @@ sites.push({
             
             var authors = Array.from(document.querySelectorAll('a[property="author"]')).map(function(x) {
                 return x.innerText.trim();
-            })
+            });
             
             
             //Get editors

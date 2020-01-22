@@ -23,7 +23,7 @@ function sitesLoaded() {
 
       if (Array.isArray(site.stateMatcher)) {
         for (var i = 0; i< site.stateMatcher.length; i++) {
-          let thisMatcher = new chrome.declarativeContent.PageStateMatcher(site.stateMatcher[i]);
+          var thisMatcher = new chrome.declarativeContent.PageStateMatcher(site.stateMatcher[i]);
           stateMatchers.push(thisMatcher);
 
 
