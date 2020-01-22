@@ -1,20 +1,20 @@
 sites.push({
     
-    name: "European Commission",
+    name: "European Commission",    
     
     stateMatcher: {
         pageUrl: {
             hostContains: 'ec.europa.eu',
-            queryContains: 'ref=',
-            pathContains: 'avservices'
-        }
+            pathContains: 'video'
+        },
+        css: ['section.ecl-file--video']
     },
     
     contentScript: function() {
         var europeanCommission = function() {
             var url = window.location.href;
-            var title = $('h3')[1].innerText.trim();
-            var credit = $('span#agency').text().replace(/.*Source: /i,"").trim();
+            var title = document.querySelectorAll('div.avs-content-wrapper>h1')[0].innerText.trim()
+            var credit = "European Commission"
             var license = "EC Handout";
             
             var fieldObject = {};
@@ -24,7 +24,7 @@ sites.push({
             fieldObject.license = license;
             fieldObject.credits = credit;
             fieldObject.url = url;
-            message(fieldObject);	
+            message(fieldObject);
             
             
             
