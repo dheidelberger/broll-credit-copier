@@ -9,24 +9,59 @@ sites.push({
     },
 
     contentScript: function() {
+
+        getPanelWithID = function(panelID,nameArray) {
+            var panel = document.querySelectorAll('div[id*="'+panelID+'"]');
+
+            if (panel.length===0) {
+                return;
+            }
+
+            let namePanel = panel[0].querySelector('div[id*="ListPnl"]')
+
+            if (namePanel) {
+                nameArray.push(namePanel.textContent.trim());
+            }
+ 
+        };
+
         var unicefweshare = function() {
             var fieldObject = {};
 
-            var url = document.getElementById('a8.3.1.1.1.3:SEOUrlPnl').getElementsByTagName('a')[0].href;
-            
-            var title = document.getElementById('a8.3.1.1.1.5:Title');
-            
-            if (title) {
-                title = title.innerText.trim();
+            var url = document.querySelectorAll('a[original-title="Permalink"]')[0].getAttribute('href')
+
+            debug(url);
+
+            var titleLine = document.querySelectorAll('div[id*="TitlePnl"]');
+            var title = "";
+
+            if (titleLine.length>0) {
+                debug("Unicef content has a title");
+                title = titleLine[0].lastElementChild.textContent.trim();
             } else {
-                title = document.getElementById('a8.3.1.1.1.5:Identifier').innerText.trim();
+                debug("Unicef content has no title. Trying identifier.");
+                var idLine = document.querySelectorAll('div[id*="IdentifierPnl"]')[0];
+                debug(idLine);
+                title = idLine.lastElementChild.textContent.trim();
             }
 
             
-
             var authors = Array.from(document.querySelectorAll('a[property="author"]')).map(function(x) {
                 return x.innerText.trim();
-            }).join("|");
+            })
+            
+            
+            //Get editors
+            getPanelWithID('KeywordsCustom8Pnl',authors);
+
+            //In House Producer
+            getPanelWithID('KeywordsCustom7Pnl',authors);
+
+            //Field Producer
+            getPanelWithID('KeywordsCustom6Pnl',authors);
+
+            authors = authors.join("|");
+
             
             var credit = "UNICEF";
             if (authors.length>0) {

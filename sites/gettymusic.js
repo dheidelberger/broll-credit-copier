@@ -67,11 +67,11 @@ sites.push({
 
 
 
-        if (url.includes("download-songs")) {
+        if (url.includes("gettyimages") && url.includes("download-songs")) {
             debug("We're on a track page");
             
             gettyMusicTrackPage(document,window.location.href);
-        } else {
+        } else if (url.includes("gettyimages")) {
             debug("We're on a list");
             
             gettyMusicTrackList();
