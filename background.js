@@ -331,7 +331,7 @@ function handleClick(tab) {
   // Has the user agreed to the privacy agreement for this version?
   var privacyAgreedItems = chrome.storage.sync.get(['privacyVersion'], function (privacyAgreedObject) {
     
-    var currentVersion = chrome.runtime.getManigest().version;
+    var currentVersion = chrome.runtime.getManifest().version;
     
     debug("Current Version: "+currentVersion);
     debug("Privacy params:");
