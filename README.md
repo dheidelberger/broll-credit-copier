@@ -164,6 +164,8 @@ stateMatcher: {
 }
 ```
 
+I recently came across an issue where the extension icon still remained blue even after I had navigated away from a compatible page. With the growing popularity of [single page applications](https://en.wikipedia.org/wiki/Single-page_application), many sites are now using [hash-based routing](https://reactarmory.com/answers/push-state-vs-hash-based-routing). This is great, but, per [this stackoverflow thread](https://stackoverflow.com/questions/23834021/using-declarativecontent-permission-hide-pageaction-after-content-change-using), Chrome does not refresh pageURL-based pageStateMatchers when location.hash is updated. So if that's the only pageStateMatcher rule type you're using and the site you're working with is updating location.hash, then the extension may appear active even after the user has navigated away from a compatible page. The solution is to also implement a css selector in your pageStateMatcher ruleset. Chrome seems to check those every time the DOM changes and will properly activate or deactivate the extension as the user navigates through an SPA. I haven't done this yet for every site, but I will be making an effort to update it in the future.
+
 ##### Error Messages
 If you need to present the user with an error message or warning, check out [alerts.js](alerts.js), which is built on top of the [jQuery plainModal plugin](https://github.com/anseki/jquery-plainmodal). There should be comments in that file which will help you create your own warnings and errors. It also includes a way of copying multiple clips at once. See the [Media Express](sites/mediaexpress.js) function for how to handle multiple clips.
 
