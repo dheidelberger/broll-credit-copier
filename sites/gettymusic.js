@@ -71,7 +71,7 @@ sites.push({
             debug("We're on a track page");
             
             gettyMusicTrackPage(document,window.location.href);
-        } else if (url.includes("gettyimages")) {
+        } else if (url.includes("gettyimages") && url.toLowerCase().includes("/music/")) {
             debug("We're on a list");
             
             gettyMusicTrackList();
