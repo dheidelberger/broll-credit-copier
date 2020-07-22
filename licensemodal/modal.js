@@ -1,7 +1,7 @@
 //Content script for privacy policy
 //We open an iframe and the iframe does all the work
 //This isolates the css and ensures a consistent look across different sites
-//Adapted from https://anderspitman.net/3/chrome-extension-content-script-stylesheet-isolation/
+//Adapted from https://anderspitman.net/3/#chrome-extension-content-script-stylesheet-isolation/
 {
     var iframe = document.createElement('iframe');
     iframe.src = chrome.extension.getURL("licensemodal/modal.html");
